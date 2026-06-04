@@ -1,0 +1,296 @@
+.page {}
+
+.header {
+  background: #1a1a1a;
+  padding: 56px 24px 48px;
+  text-align: center;
+  border-bottom: 4px solid var(--brand);
+}
+
+.eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  color: rgba(255,255,255,0.45);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* TIERS */
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.tier {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 28px 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tierFeatured {
+  border: 2px solid var(--brand);
+  box-shadow: 0 4px 24px rgba(214,40,40,0.1);
+}
+
+.badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--brand);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+
+.tierName {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.tierPrice {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--brand);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.tierPrice span {
+  font-size: 16px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.tierDesc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.cta {
+  width: 100%;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 11px 16px;
+  border-radius: 3px;
+  margin-bottom: 24px;
+  transition: all 0.15s;
+}
+
+.cta_outline {
+  border: 1.5px solid var(--border);
+  background: none;
+  color: var(--muted);
+}
+.cta_outline:hover { border-color: var(--ink); color: var(--ink); }
+
+.cta_primary {
+  background: var(--brand);
+  border: none;
+  color: #fff;
+}
+.cta_primary:hover { background: var(--brand-dark); }
+
+.cta_dark {
+  background: #1a1a1a;
+  border: none;
+  color: #fff;
+}
+.cta_dark:hover { background: #333; }
+
+.featureList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.featureItem {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.featureLocked { opacity: 0.35; }
+
+.checkYes {
+  font-size: 11px;
+  font-weight: 700;
+  color: #2a8a4a;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.checkNo {
+  font-size: 11px;
+  color: #ccc;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.idealFor {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+
+.idealLabel {
+  display: block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.idealText {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* SECTION */
+.section {
+  padding: 64px 0 0;
+}
+
+.h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  margin-bottom: 24px;
+}
+
+/* TABLE */
+.table {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 120px);
+  border-bottom: 1px solid var(--border);
+}
+
+.tableRow:last-child { border-bottom: none; }
+
+.tableHead {
+  background: #1a1a1a;
+}
+
+.tableHead .tableFeature,
+.tableHead .tableCell {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+}
+
+.tableHead .tableCell:nth-child(3) { color: var(--gold); }
+
+.tableFeature {
+  font-size: 13px;
+  color: var(--ink);
+  padding: 12px 16px;
+}
+
+.tableCell {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  padding: 12px 16px;
+  text-align: center;
+  border-left: 1px solid var(--border);
+}
+
+/* FAQ */
+.faq {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.faqItem {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.faqQ {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.faqA {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .tiers { grid-template-columns: 1fr; }
+  .faq { grid-template-columns: 1fr; }
+  .tableRow { grid-template-columns: 1fr repeat(3, 80px); }
+  .title { font-size: 48px; }
+}

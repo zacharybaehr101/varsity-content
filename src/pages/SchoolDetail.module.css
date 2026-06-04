@@ -1,0 +1,355 @@
+.page {}
+
+.breadcrumb {
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 24px;
+}
+
+.breadcrumbInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+
+.breadLink { color: var(--muted); }
+.breadLink:hover { color: var(--brand); }
+.breadSep { opacity: 0.4; }
+
+/* HEADER */
+.header {
+  background: #1a1a1a;
+  padding: 32px 24px;
+  border-bottom: 3px solid var(--brand);
+}
+
+.headerInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logoBox {
+  width: 72px;
+  height: 72px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.initials {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+.headerText { flex: 1 }
+
+.headerMeta {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.divBadge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 2px;
+}
+
+.confBadge {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  padding: 2px 8px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.06);
+}
+
+.schoolName {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  color: #fff;
+  letter-spacing: 1px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.urlLink {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  transition: color 0.15s;
+}
+
+.urlLink:hover { color: var(--gold); }
+
+.visitBtn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--brand);
+  padding: 10px 20px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.visitBtn:hover { background: var(--brand-dark); }
+
+/* CONTAINER */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 32px;
+}
+
+/* MAIN */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.analysisBlock {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid #2a8a4a;
+  border-radius: 4px;
+  padding: 20px 20px 20px 18px;
+}
+
+.blockHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.blockIcon { font-size: 16px; }
+
+.blockTitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.blockText {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #444;
+}
+
+/* SCREENSHOT */
+.screenshotBox {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.screenshotLabel {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--muted);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.screenshotPlaceholder {
+  height: 200px;
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.screenshotInitials {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  letter-spacing: 4px;
+  color: rgba(0,0,0,0.12);
+}
+
+.screenshotUrl {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* SIDEBAR */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dataCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dataCardTitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 12px 14px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.dataRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--border);
+  gap: 8px;
+}
+
+.dataRow:last-child { border-bottom: none; }
+
+.dataKey {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+
+.dataVal {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: right;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* EXPORT */
+.exportCard {
+  background: #fff8e6;
+  border: 1px solid #f7d87c;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.exportTitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7a5c00;
+  margin-bottom: 6px;
+}
+
+.exportDesc {
+  font-size: 12px;
+  color: #8a6800;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.exportBtn {
+  display: block;
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--brand);
+  padding: 8px 14px;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+
+.exportBtn:hover { background: var(--brand-dark); }
+
+/* SCHOOL NAV */
+.schoolNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--border);
+  margin-top: 32px;
+}
+
+.schoolNavBtn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--muted);
+  padding: 8px 0;
+  transition: color 0.15s;
+}
+
+.schoolNavBtn:hover { color: var(--brand); }
+
+.schoolNavIndex {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+
+.schoolNavIndex:hover { background: var(--surface-2); }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .headerInner { flex-wrap: wrap; }
+  .schoolName { font-size: 32px; }
+}
