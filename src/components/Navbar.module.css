@@ -1,0 +1,155 @@
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #ffffff;
+  border-bottom: 2px solid #1a1a1a;
+  height: var(--nav-h);
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+/* LOGO */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.logoMark {
+  background: #1a1a1a;
+  width: 38px;
+  height: 38px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  flex-shrink: 0;
+}
+
+.logoV {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: #D62828;
+  line-height: 1;
+}
+
+.logoC {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.logoWords {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logoVarsity {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 17px;
+  color: #1a1a1a;
+  letter-spacing: 2px;
+}
+
+.logoContent {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #D62828;
+  text-transform: uppercase;
+}
+
+/* LINKS */
+.links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+}
+
+.link {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 6px 12px;
+  border-radius: 3px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.link:hover {
+  color: var(--ink);
+  background: var(--surface);
+}
+
+.active {
+  color: var(--ink);
+  border-bottom: 2px solid var(--brand);
+  border-radius: 0;
+}
+
+/* CTA */
+.cta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.ctaFree {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+
+.ctaFree:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+.ctaPaid {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--brand);
+  padding: 7px 14px;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+
+.ctaPaid:hover {
+  background: var(--brand-dark);
+}
+
+@media (max-width: 640px) {
+  .logoWords { display: none; }
+  .ctaFree { display: none; }
+  .links { gap: 0; }
+  .link { padding: 6px 8px; font-size: 12px; }
+}
