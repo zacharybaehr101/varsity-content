@@ -57,6 +57,8 @@
 
 .headerText { flex: 1 }
 
+.headerActions { flex-shrink: 0; }
+
 .headerMeta {
   display: flex;
   gap: 8px;
@@ -401,4 +403,343 @@
   .grid { grid-template-columns: 1fr; }
   .headerInner { flex-wrap: wrap; }
   .schoolName { font-size: 32px; }
+}
+
+/* CAPTURE LINE */
+.captureLine {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 6px;
+}
+
+/* WORDS FIRST */
+.wordsSection {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--brand);
+  border-radius: 4px;
+  padding: 20px 20px 20px 18px;
+}
+
+.sectionKicker {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 8px;
+}
+
+.heroQuote {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: 0.5px;
+  color: var(--ink);
+  margin: 0 0 10px;
+}
+
+.headlineLine {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.chipRow {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.chip {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 3px 9px;
+}
+
+.emphasisLine {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #444;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin: 0;
+}
+
+/* SECTION CARDS (media, pillars, ideas, compare) */
+.sectionCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.sectionTitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+
+.noteLine {
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+
+.inlineLink { color: var(--brand); font-weight: 700; }
+.inlineLink:hover { text-decoration: underline; }
+
+/* MEDIA FACTS */
+.factGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.factItem {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 8px 12px;
+}
+
+.factLabel {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.factValue {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: right;
+}
+
+.liveBlock {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.liveLabel {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #2a8a4a;
+  margin-bottom: 10px;
+}
+
+.liveList { margin: 0; }
+.liveList > div { margin-bottom: 10px; }
+.liveList > div:last-child { margin-bottom: 0; }
+.liveList dt {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.liveList dd {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #444;
+  margin: 2px 0 0;
+}
+
+/* PILLARS */
+.pillarGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.pillarCard {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 14px;
+  background: var(--surface);
+}
+
+.pillarTitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+
+.pillarFact {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: #444;
+  padding: 3px 0;
+}
+
+.pillarFact strong { color: var(--ink); text-align: right; }
+
+.pillarNote {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 8px 0 0;
+}
+
+.pillarLive {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #444;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  margin: 8px 0 0;
+}
+
+.stealLine {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: #fff8e6;
+  border: 1px solid #f7d87c;
+  border-radius: 4px;
+  padding: 12px 14px;
+  margin: 14px 0 0;
+}
+
+/* IDEAS */
+.ideaCard {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 14px;
+  margin-bottom: 12px;
+  background: var(--surface);
+}
+
+.ideaCard:last-of-type { margin-bottom: 12px; }
+
+.ideaAngle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 6px;
+}
+
+.ideaEvidence {
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+
+.ideaSource {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.ideaSteal {
+  font-size: 13px;
+  line-height: 1.55;
+  color: #444;
+  margin: 0 0 10px;
+}
+
+/* SCREENSHOT NOTE */
+.screenshotNote {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--muted);
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+/* COMPARE */
+.compareSelect {
+  width: 100%;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+
+.compareTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.compareTable th {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-align: left;
+  color: var(--ink);
+  border-bottom: 2px solid var(--border);
+  padding: 6px 8px;
+}
+
+.compareTable td {
+  vertical-align: top;
+  color: #444;
+  border-bottom: 1px solid var(--border);
+  padding: 8px;
+}
+
+.compareLabel {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .pillarGrid { grid-template-columns: 1fr; }
+  .factGrid { grid-template-columns: 1fr; }
+  .heroQuote { font-size: 22px; }
 }
