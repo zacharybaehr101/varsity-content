@@ -169,6 +169,55 @@
   color: #444;
 }
 
+.blockActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.ideaBtn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand);
+  padding: 7px 14px;
+  border: 1px solid rgba(214,40,40,0.4);
+  border-radius: 3px;
+  background: none;
+}
+
+.ideaBtn:hover { background: rgba(214,40,40,0.06); }
+
+.ideaBtn.ideaSaved {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+.gapBtn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--surface-2);
+}
+
+.gapBtn:hover:not(:disabled) { color: var(--brand); border-color: var(--brand); }
+
+.gapBtn:disabled {
+  color: #2a8a4a;
+  border-color: #9ed0ab;
+  cursor: default;
+}
+
 /* SCREENSHOT */
 .screenshotBox {
   background: var(--card);

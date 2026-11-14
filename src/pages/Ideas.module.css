@@ -100,7 +100,16 @@
 
 .chip:hover { border-color: #fff; color: #fff; }
 
+.savedLink {
+  margin-top: 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
 
+.savedLink a { color: var(--gold); }
+.savedLink a:hover { text-decoration: underline; }
 
 .container {
   max-width: 1200px;

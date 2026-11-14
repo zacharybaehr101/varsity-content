@@ -2,18 +2,10 @@ import { useState, useMemo, useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { schools } from '../data/schools'
 import { searchIdeas, SUGGESTED_CHIPS, CAPTURE_DATE } from '../lib/ideas'
+import { loadSaved, toggleSave as toggleSaveIdea, IDEAS_CHANGED_EVENT } from '../lib/myIdeas'
 import styles from './Ideas.module.css'
 
-const STORAGE_KEY = 'vc-my-ideas'
 const PAGE_SIZE = 12
-
-function loadSaved() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
-  } catch {
-    return []
-  }
-}
 
 const divisions = ['Division I', 'Division II', 'Division III', 'NAIA']
 const conferences = [...new Set(schools.map(s => s.conf))].sort()
@@ -29,6 +21,12 @@ export default function Ideas() {
   useEffect(() => {
     setQuery(params.get('q') || '')
   }, [params])
+
+  useEffect(() => {
+    const refresh = () => setSaved(loadSaved())
+    window.addEventListener(IDEAS_CHANGED_EVENT, refresh)
+    return () => window.removeEventListener(IDEAS_CHANGED_EVENT, refresh)
+  }, [])
 
   const results = useMemo(
     () => searchIdeas(query, { division: div, conference: conf, list: schools }),
@@ -48,13 +46,8 @@ export default function Ideas() {
   }
 
   const toggleSave = (idea) => {
-    setSaved(prev => {
-      const next = savedKeys.has(idea.ideaKey)
-        ? prev.filter(s => s.ideaKey !== idea.ideaKey)
-        : [...prev, { schoolId: idea.schoolId, ideaKey: idea.ideaKey, savedAt: new Date().toISOString() }]
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(next)) } catch { /* private mode */ }
-      return next
-    })
+    const { saved } = toggleSaveIdea(idea)
+    setSaved(saved)
   }
 
   return (
@@ -88,6 +81,13 @@ export default function Ideas() {
               </button>
             ))}
           </div>
+          {saved.length > 0 && (
+            <div className={styles.savedLink}>
+              <Link to="/my-ideas">
+                {saved.length} saved idea{saved.length === 1 ? '' : 's'} — View My Ideas →
+              </Link>
+            </div>
+          )}
         </div>
       </div>
 
