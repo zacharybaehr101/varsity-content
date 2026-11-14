@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { schools } from '../data/schools'
 import SchoolCard from '../components/SchoolCard'
 import styles from './Home.module.css'
@@ -22,6 +23,15 @@ const CONF_HIGHLIGHTS = [
 ]
 
 export default function Home() {
+  const navigate = useNavigate()
+  const [ideaQuery, setIdeaQuery] = useState('')
+
+  const goIdeas = (e) => {
+    e.preventDefault()
+    const q = ideaQuery.trim()
+    navigate(q ? `/ideas?q=${encodeURIComponent(q)}` : '/ideas')
+  }
+
   return (
     <div className={styles.page}>
 
@@ -40,9 +50,20 @@ export default function Home() {
             Independent UX audits of 141+ collegiate athletics websites.<br />
             From Power 4 to NAIA — every school, honestly graded.
           </p>
+          <form className={styles.ideaBox} onSubmit={goIdeas}>
+            <input
+              type="text"
+              className={styles.ideaInput}
+              placeholder="What do you need ideas for?"
+              value={ideaQuery}
+              onChange={(e) => setIdeaQuery(e.target.value)}
+              aria-label="What do you need ideas for?"
+            />
+            <button type="submit" className={styles.heroPrimary}>Get ideas →</button>
+          </form>
           <div className={styles.heroCtas}>
-            <Link to="/index" className={styles.heroPrimary}>Explore the Index</Link>
-            <Link to="/pricing" className={styles.heroSecondary}>View Pricing</Link>
+            <Link to="/index" className={styles.heroSecondary}>Explore the Index</Link>
+            <Link to="/ideas" className={styles.heroSecondary}>Try: student ticket sales</Link>
           </div>
         </div>
       </section>

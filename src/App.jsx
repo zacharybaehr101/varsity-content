@@ -3,6 +3,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Index from './pages/Index'
+import Ideas from './pages/Ideas'
 import SchoolDetail from './pages/SchoolDetail'
 import Pricing from './pages/Pricing'
 
@@ -14,6 +15,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/index" element={<Index />} />
+          <Route path="/ideas" element={<Ideas />} />
           <Route path="/school/:id" element={<SchoolDetail />} />
           <Route path="/pricing" element={<Pricing />} />
         </Routes>
