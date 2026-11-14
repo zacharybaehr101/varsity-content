@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Index from './pages/Index'
 import Ideas from './pages/Ideas'
 import MyIdeas from './pages/MyIdeas'
+import News from './pages/News'
 import SchoolDetail from './pages/SchoolDetail'
 import Pricing from './pages/Pricing'
 
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/index" element={<Index />} />
           <Route path="/ideas" element={<Ideas />} />
           <Route path="/my-ideas" element={<MyIdeas />} />
+          <Route path="/news" element={<News />} />
           <Route path="/school/:id" element={<SchoolDetail />} />
           <Route path="/pricing" element={<Pricing />} />
         </Routes>

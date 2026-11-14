@@ -111,6 +111,7 @@ export default function MyIdeas() {
                 Nothing saved yet. Go find an idea worth stealing.
               </div>
               <Link to="/ideas" className={styles.emptyBtn}>Get ideas →</Link>
+              <Link to="/news" className={styles.emptyBtn}>Browse the feature-story feed →</Link>
             </div>
           )}
 

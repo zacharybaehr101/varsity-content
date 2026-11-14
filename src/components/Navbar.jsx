@@ -39,6 +39,7 @@ export default function Navbar() {
           <Link to="/" className={`${styles.link} ${active('/')}`}>Home</Link>
           <Link to="/index" className={`${styles.link} ${active('/index')}`}>The Index</Link>
           <Link to="/ideas" className={`${styles.link} ${active('/ideas')}`}>Get Ideas</Link>
+          <Link to="/news" className={`${styles.link} ${active('/news')}`}>News</Link>
           <Link to="/my-ideas" className={`${styles.link} ${active('/my-ideas')}`}>
             My Ideas{ideaCount > 0 && <span className={styles.badge}>{ideaCount}</span>}
           </Link>

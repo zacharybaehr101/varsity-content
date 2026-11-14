@@ -1,0 +1,321 @@
+.page {}
+
+.header {
+  background: #1a1a1a;
+  padding: 48px 24px 40px;
+  border-bottom: 4px solid var(--brand);
+}
+
+.headerInner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 56px;
+  color: #fff;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.sub {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  color: rgba(255,255,255,0.5);
+  max-width: 640px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.honestNote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,0.65);
+  max-width: 640px;
+  line-height: 1.5;
+  border-left: 3px solid var(--gold);
+  padding-left: 12px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+}
+
+.captureNote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 16px 0 4px;
+}
+
+/* TOOLBAR */
+.toolbar {
+  padding: 16px 0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+
+.toolbarLeft {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.toolbarRight { flex-shrink: 0; }
+
+.search {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--ink);
+  outline: none;
+  min-width: 220px;
+}
+
+.search:focus { border-color: var(--brand); }
+
+.select {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--ink);
+  cursor: pointer;
+  outline: none;
+}
+
+.select:focus { border-color: var(--brand); }
+
+.clearBtn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.clearBtn:hover { color: var(--ink); }
+
+.resultCount {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.resultCount strong {
+  font-size: 18px;
+  color: var(--brand);
+}
+
+.toggle {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 4px 0 16px;
+  cursor: pointer;
+}
+
+.toggle input {
+  margin-top: 2px;
+  accent-color: var(--brand);
+}
+
+/* LIST */
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px;
+}
+
+.cardTop {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.sportTag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--brand);
+  padding: 4px 10px;
+  border-radius: 3px;
+}
+
+.kindTag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--gold);
+  padding: 4px 10px;
+  border-radius: 3px;
+}
+
+.reason {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--muted);
+}
+
+.headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px;
+  letter-spacing: 1px;
+  color: var(--ink);
+  line-height: 1.1;
+}
+
+.meta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 6px 0 12px;
+}
+
+.why {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+  border-left: 3px solid var(--gold);
+  padding-left: 14px;
+  margin-bottom: 14px;
+}
+
+.cardActions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.saveBtn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brand);
+  padding: 8px 16px;
+  border: 1px solid rgba(214,40,40,0.4);
+  border-radius: 3px;
+  background: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.saveBtn:hover { background: rgba(214,40,40,0.06); }
+
+.saveBtn.saved {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+.schoolLink {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--brand);
+}
+
+.schoolLink:hover { text-decoration: underline; }
+
+/* EMPTY */
+.empty {
+  text-align: center;
+  padding: 64px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.emptyIcon { font-size: 40px; }
+
+.emptyText {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--muted);
+  max-width: 480px;
+}
+
+.moreCta {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.moreBtn {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  padding: 12px 32px;
+  border: 1.5px solid var(--ink);
+  border-radius: 3px;
+  background: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.moreBtn:hover { background: var(--ink); color: #fff; }
+
+@media (max-width: 768px) {
+  .title { font-size: 40px; }
+}
