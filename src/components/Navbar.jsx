@@ -24,6 +24,7 @@ export default function Navbar() {
         <div className={styles.links}>
           <Link to="/" className={`${styles.link} ${active('/')}`}>Home</Link>
           <Link to="/index" className={`${styles.link} ${active('/index')}`}>The Index</Link>
+          <Link to="/ideas" className={`${styles.link} ${active('/ideas')}`}>Get Ideas</Link>
           <Link to="/pricing" className={`${styles.link} ${active('/pricing')}`}>Pricing</Link>
         </div>
 
