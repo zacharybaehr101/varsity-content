@@ -17,6 +17,15 @@
 //   loveFull        What_We_Love (full text; existing `love` stays truncated)
 //   strengthsFull   Strengths_Highlights (full text)
 //   areasFull       Areas_of_Opportunity (full text)
+//   heroAssetType   Hero_Asset_Type (verbatim — replaces the hardcoded "Image")
+//   hasScoreboard   Has_Live_Scoreboard (Yes/No -> boolean)
+//   scoreboardPosition Scoreboard_Position (verbatim — replaces hardcoded "Top")
+//   genderBalance   Gender_Representation_Balance (verbatim — replaces "Balanced")
+//   lazyLoading     Lazy_Loading_Issues_Detected (verbatim "Yes"/"No" — replaces "No")
+//   hasGalleries    Has_Photo_Galleries (Yes/No -> boolean)
+//   captureDate     Capture_Timestamp, date part only ("2026-06-03")
+//   screenshotFile  Screenshot_File_Name (verbatim)
+//   headlineTone    Headline_Tone (verbatim)
 //
 // Schools in the Sheet but NOT in schools.js are skipped, never added.
 // Division/conference labels are NOT taken from the Sheet — schools.js
@@ -83,6 +92,15 @@ const C = {
   loveFull: idx('What_We_Love'),
   strengthsFull: idx('Strengths_Highlights'),
   areasFull: idx('Areas_of_Opportunity'),
+  heroAssetType: idx('Hero_Asset_Type'),
+  hasScoreboard: idx('Has_Live_Scoreboard'),
+  scoreboardPosition: idx('Scoreboard_Position'),
+  genderBalance: idx('Gender_Representation_Balance'),
+  lazyLoading: idx('Lazy_Loading_Issues_Detected'),
+  hasGalleries: idx('Has_Photo_Galleries'),
+  captureDate: idx('Capture_Timestamp'),
+  screenshotFile: idx('Screenshot_File_Name'),
+  headlineTone: idx('Headline_Tone'),
 }
 
 const sheetByName = new Map()
@@ -108,6 +126,15 @@ for (const s of schools) {
   s.loveFull = (r[C.loveFull] || '').trim()
   s.strengthsFull = (r[C.strengthsFull] || '').trim()
   s.areasFull = (r[C.areasFull] || '').trim()
+  s.heroAssetType = (r[C.heroAssetType] || '').trim()
+  s.hasScoreboard = yesNo(r[C.hasScoreboard] || '')
+  s.scoreboardPosition = (r[C.scoreboardPosition] || '').trim()
+  s.genderBalance = (r[C.genderBalance] || '').trim()
+  s.lazyLoading = (r[C.lazyLoading] || '').trim()
+  s.hasGalleries = yesNo(r[C.hasGalleries] || '')
+  s.captureDate = (r[C.captureDate] || '').trim().slice(0, 10)
+  s.screenshotFile = (r[C.screenshotFile] || '').trim()
+  s.headlineTone = (r[C.headlineTone] || '').trim()
 }
 
 const skipped = [...sheetByName.keys()].filter(n => !schools.some(s => s.name === n))
