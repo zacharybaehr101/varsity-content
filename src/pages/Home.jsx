@@ -93,13 +93,13 @@ export default function Home() {
             </div>
             <div className={styles.aboutFeatures}>
               {[
-                ['🏟', 'CMS Provider Data', 'Know exactly who powers every site — Sidearm, WMT, PrestoSports and beyond.'],
-                ['📊', '26 Tracked Fields', 'From hero narrative type to NIL link placement and streaming platform.'],
-                ['✍️', 'Editorial Analysis', 'UX critique written by practitioners, not algorithms.'],
-                ['📥', 'Data Export', 'CSV and tab-delimited export for agencies and research teams.'],
-              ].map(([icon, title, desc]) => (
+                ['CMS Provider Data', 'Know exactly who powers every site — Sidearm, WMT, PrestoSports and beyond.'],
+                ['26 Tracked Fields', 'From hero narrative type to NIL link placement and streaming platform.'],
+                ['Editorial Analysis', 'UX critique written by practitioners, not algorithms.'],
+                ['Data Export', 'CSV and tab-delimited export for agencies and research teams.'],
+              ].map(([title, desc]) => (
                 <div key={title} className={styles.feature}>
-                  <span className={styles.featureIcon}>{icon}</span>
+                  <span className={styles.featureIcon} aria-hidden="true" />
                   <div>
                     <div className={styles.featureTitle}>{title}</div>
                     <div className={styles.featureDesc}>{desc}</div>

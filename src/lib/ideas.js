@@ -198,9 +198,12 @@ function slug(s) {
 
 // Build an idea object from one editorial block of a school record
 // (used by the school detail page's "Save this as an idea" buttons).
+// The key carries the block's source field as well as the angle: the angle
+// alone collides when a school's blocks all fall back to "From the audit"
+// (saving one block then lit all three bulbs).
 export function ideaFromEvidence(school, evidence, evidenceSource) {
   const angle = deriveAngle(school, evidence, null)
-  const ideaKey = `${school.id}-${slug(angle)}`
+  const ideaKey = `${school.id}-${slug(evidenceSource || 'audit')}-${slug(angle)}`
   return {
     id: ideaKey,
     ideaKey,
@@ -252,6 +255,16 @@ export function getIdeaByKey(schoolId, ideaKey, list) {
     const known = Object.keys(STEAL_IT).find((a) => slug(a) === suffix)
     angle = known || angle
   }
+  // New-format keys carry the source block first
+  // ("what-we-love-from-the-audit"): use it to pick the right evidence
+  // field when migrating a minimal save. Old-format keys ("from-the-audit")
+  // fall through to the default below, as before.
+  const SOURCE_FIELDS = {
+    'what-we-love': 'loveFull',
+    'strengths': 'strengthsFull',
+    'areas-of-opportunity': 'areasFull',
+  }
+  const sourceKey = Object.keys(SOURCE_FIELDS).find((k) => suffix.startsWith(`${k}-`))
   const quotable = [
     { key: 'heroCopy', label: 'Hero copy', text: school.heroCopy || '' },
     { key: 'headline', label: 'Top headline', text: school.headline || '' },
@@ -260,9 +273,11 @@ export function getIdeaByKey(schoolId, ideaKey, list) {
     { key: 'areasFull', label: 'Areas of Opportunity', text: school.areasFull || school.areas || '' },
   ]
   const keywords = ANGLE_EVIDENCE_KEYS[angle] || []
-  const best = quotable.find((f) =>
-    keywords.some((k) => f.text.toLowerCase().includes(k))
-  ) || quotable[2]
+  const best = (sourceKey
+    ? quotable.find((f) => f.key === SOURCE_FIELDS[sourceKey])
+    : quotable.find((f) =>
+      keywords.some((k) => f.text.toLowerCase().includes(k))
+    )) || quotable[2]
   return {
     id: ideaKey,
     ideaKey,

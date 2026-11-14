@@ -106,7 +106,6 @@ export default function MyIdeas() {
 
           {saved.length === 0 && (
             <div className={styles.empty}>
-              <div className={styles.emptyIcon}>💡</div>
               <div className={styles.emptyText}>
                 Nothing saved yet. Go find an idea worth stealing.
               </div>
@@ -211,7 +210,7 @@ export default function MyIdeas() {
             <h2 className={styles.h2}>My checklist</h2>
             <p className={styles.sectionSub}>
               {doneCount} of {checklist.length} done
-              {checklist.length > 0 && doneCount === checklist.length && ' — all done 🎉'}
+              {checklist.length > 0 && doneCount === checklist.length && ' — all done'}
             </p>
           </div>
 
@@ -231,7 +230,6 @@ export default function MyIdeas() {
 
           {checklist.length === 0 && (
             <div className={styles.empty}>
-              <div className={styles.emptyIcon}>✅</div>
               <div className={styles.emptyText}>
                 Your checklist is empty. Add a starter kit above, or save an
                 idea and turn it into steps.

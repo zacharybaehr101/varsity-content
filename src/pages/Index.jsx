@@ -104,7 +104,7 @@ export default function Index() {
         {/* FREE NOTICE */}
         <div className={styles.freeNotice}>
           <span className={styles.freeNoticeText}>
-            🔓 Showing <strong>{Math.min(FREE_UNLOCKS, filtered.length)} free</strong> full profiles this session.
+            Showing <strong>{Math.min(FREE_UNLOCKS, filtered.length)} free</strong> full profiles this session.
           </span>
           <a href="/pricing" className={styles.freeNoticeLink}>Unlock all with Scout →</a>
         </div>
@@ -112,7 +112,6 @@ export default function Index() {
         {/* SCHOOL LIST */}
         {filtered.length === 0 ? (
           <div className={styles.empty}>
-            <div className={styles.emptyIcon}>🏟</div>
             <div className={styles.emptyText}>No schools match your filters.</div>
             <button className={styles.emptyBtn} onClick={clearFilters}>Clear filters</button>
           </div>

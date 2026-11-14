@@ -40,7 +40,7 @@
 
 .heroEyebrow {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -63,7 +63,7 @@
 
 .heroSub {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 400;
   color: rgba(255,255,255,0.65);
   line-height: 1.5;
@@ -87,7 +87,7 @@
 .ideaInput {
   flex: 1;
   font-family: 'Barlow', sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   padding: 12px 16px;
   border: 1px solid rgba(255,255,255,0.25);
   border-radius: 3px;
@@ -101,7 +101,7 @@
 
 .heroPrimary {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -116,7 +116,7 @@
 
 .heroSecondary {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -156,7 +156,7 @@
 
 .statLabel {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -167,8 +167,12 @@
 /* CONTAINER */
 .container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+  margin: 24px auto;
+  padding: 24px 24px 64px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
 
 /* SECTION */
@@ -186,7 +190,7 @@
 
 .eyebrow {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -207,7 +211,7 @@
 
 .sectionLink {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--brand);
@@ -223,7 +227,7 @@
 }
 
 .aboutText {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.7;
   color: #444;
 }
@@ -241,21 +245,24 @@
 }
 
 .featureIcon {
-  font-size: 20px;
+  width: 10px;
+  height: 10px;
+  background: var(--brand);
+  border-radius: 2px;
   flex-shrink: 0;
-  margin-top: 2px;
+  margin-top: 7px;
 }
 
 .featureTitle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--ink);
   margin-bottom: 2px;
 }
 
 .featureDesc {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
   line-height: 1.5;
 }
@@ -297,14 +304,14 @@
 
 .confCount {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--brand);
 }
 
 .confDiv {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.5px;
   color: var(--muted);
@@ -325,7 +332,7 @@
 
 .moreBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -364,7 +371,7 @@
 }
 
 .pricingTeaserSub {
-  font-size: 15px;
+  font-size: 17px;
   color: rgba(255,255,255,0.5);
   line-height: 1.6;
   margin-bottom: 28px;
@@ -378,7 +385,7 @@
 
 .pricingTeaserPrimary {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -393,7 +400,7 @@
 
 .pricingTeaserSecondary {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;

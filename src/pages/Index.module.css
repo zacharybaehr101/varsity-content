@@ -13,7 +13,7 @@
 
 .eyebrow {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -32,7 +32,7 @@
 
 .sub {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   color: rgba(255,255,255,0.5);
   max-width: 560px;
   line-height: 1.5;
@@ -40,8 +40,12 @@
 
 .container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px 64px;
+  margin: 24px auto;
+  padding: 24px 24px 64px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
 
 /* TOOLBAR */
@@ -68,7 +72,7 @@
 
 .search {
   font-family: 'Barlow', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: 3px;
@@ -83,7 +87,7 @@
 
 .select {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   padding: 8px 10px;
   border: 1px solid var(--border);
@@ -98,7 +102,7 @@
 
 .clearBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   padding: 8px 12px;
@@ -113,14 +117,14 @@
 
 .resultCount {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.5px;
 }
 
 .resultCount strong {
-  font-size: 18px;
+  font-size: 20px;
   color: var(--brand);
 }
 
@@ -138,14 +142,14 @@
 
 .freeNoticeText {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   color: #7a5c00;
   flex: 1;
 }
 
 .freeNoticeLink {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--brand);
@@ -171,11 +175,9 @@
   gap: 12px;
 }
 
-.emptyIcon { font-size: 40px; }
-
 .emptyText {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 1px;
   color: var(--muted);
@@ -183,7 +185,7 @@
 
 .emptyBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -209,7 +211,7 @@
 
 .pageBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   padding: 7px 13px;
   border: 1px solid var(--border);
@@ -230,7 +232,7 @@
 
 .pageInfo {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 1px;
   color: var(--muted);
   margin-left: 8px;

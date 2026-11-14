@@ -1,0 +1,42 @@
+/* Quiet save affordance: a small lightbulb that sits beside the idea
+   instead of competing with it. */
+.bulbBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  color: #9a938a;
+  line-height: 1;
+  transition: color 0.15s, transform 0.15s;
+  flex-shrink: 0;
+}
+
+.bulbBtn:hover {
+  color: #d9a400;
+  transform: scale(1.08);
+}
+
+.bulbBtn:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+.bulb {
+  display: block;
+}
+
+.bulbBtn.saved {
+  color: #d9a400;
+}
+
+.savedLabel {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #8a6800;
+}

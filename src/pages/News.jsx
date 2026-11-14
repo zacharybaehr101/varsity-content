@@ -16,6 +16,7 @@ import { schools } from '../data/schools'
 import { buildNewsFeed, newsCounts, CAPTURE_DATE } from '../lib/news'
 import { ideaFromEvidence } from '../lib/ideas'
 import { loadSaved, toggleSave as toggleSaveIdea, IDEAS_CHANGED_EVENT } from '../lib/myIdeas'
+import IdeaSaveButton from '../components/IdeaSaveButton'
 import styles from './News.module.css'
 
 const PAGE_SIZE = 12
@@ -165,7 +166,6 @@ export default function News() {
 
         {results.length === 0 && (
           <div className={styles.empty}>
-            <div className={styles.emptyIcon}>📰</div>
             <div className={styles.emptyText}>
               No feature stories match those filters. Try clearing a filter,
               or tick “Include announcements”.
@@ -198,12 +198,10 @@ export default function News() {
                 {item.reason}. Source: {item.evidenceSource}, captured {item.captureDate}.
               </p>
               <div className={styles.cardActions}>
-                <button
-                  className={`${styles.saveBtn} ${isSaved ? styles.saved : ''}`}
-                  onClick={() => handleSave(item)}
-                >
-                  {isSaved ? '✓ Saved' : '＋ Save as idea'}
-                </button>
+                <IdeaSaveButton
+                  saved={isSaved}
+                  onToggle={() => handleSave(item)}
+                />
                 <Link to={`/school/${item.schoolId}`} className={styles.schoolLink}>
                   View school →
                 </Link>
