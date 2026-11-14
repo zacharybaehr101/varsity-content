@@ -43,7 +43,7 @@ export default function Footer() {
       <div className={styles.bottom}>
         <span>© 2026 VarsityContent.com — Independent editorial. Not affiliated with the NCAA or any athletic conference.</span>
         <div className={styles.bottomLinks}>
-          <span className={styles.stat}>141 Schools</span>
+          <span className={styles.stat}>148 Schools</span>
           <span className={styles.stat}>10 Conferences</span>
           <span className={styles.stat}>26 Data Fields</span>
         </div>

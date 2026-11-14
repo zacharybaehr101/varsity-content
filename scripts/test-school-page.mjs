@@ -3,15 +3,16 @@
 // Checks the data the rebuilt SchoolDetail depends on, and that the page
 // no longer hardcodes audit values:
 //
-// Data (all 141 schools):
+// Data (all 148 schools):
 //   - the 9 restored fields are populated (heroAssetType, hasScoreboard,
 //     scoreboardPosition, genderBalance, lazyLoading, hasGalleries,
 //     captureDate, screenshotFile, headlineTone)
 //   - mobileSticky matches the Sheet: every MIAA and Sun school is "No",
 //     every other school is "Yes" (the conference-template fingerprint
-//     from the 148-school content analysis)
+//     from the 148-school content analysis) — Sheet-wide 20 No / 128 Yes,
+//     and all 20 are on the site now that the 7 missing schools are in
 //   - genderBalance has its 3 real variants, not a single hardcoded value
-//   - captureDate is 2026-06-03 for all 141
+//   - captureDate is 2026-06-03 for all 148
 // Lib (src/lib/schoolPage.js):
 //   - themeFor covers the proven cases: Notre Dame ticket push, Purdue
 //     honors, Cincinnati coach, Duke schedule, Dickinson record chase,
@@ -21,8 +22,10 @@
 //   - ideasFromSchool returns 1–2 ideas per school, each with an angle,
 //     verbatim evidence, and a steal-it line
 // Live notes (src/data/liveNotes.js):
-//   - exactly 3 schools (Ohio State 13, Fort Hays 65, Mount Marty 112),
-//     each with media (audio/video/photos/social) and all four pillars
+//   - exactly 10 schools: the 3 fully audited live (Ohio State 13,
+//     Fort Hays 65, Mount Marty 112) plus the 7 homepage-only audits
+//     from the missing-7 run (142–148), each with media
+//     (audio/video/photos/social) and all four pillars
 // Page (src/pages/SchoolDetail.jsx):
 //   - contains no hardcoded audit values: no 'Image' / 'Balanced' /
 //     'Top' literals in the fields list — every field reads school.*
@@ -51,25 +54,25 @@ function byName(name) {
   return school
 }
 
-// --- data: all 141 populated ----------------------------------------------
-check('schools count', schools.length, 141)
+// --- data: all 148 populated ----------------------------------------------
+check('schools count', schools.length, 148)
 const newFields = ['heroAssetType', 'scoreboardPosition', 'genderBalance', 'lazyLoading', 'captureDate', 'screenshotFile', 'headlineTone']
 for (const f of newFields) {
   const missing = schools.filter((s) => !(s[f] || '').trim()).length
-  check(`field ${f} populated for all 141 (missing)`, missing, 0)
+  check(`field ${f} populated for all 148 (missing)`, missing, 0)
 }
-check('hasScoreboard present for all 141', schools.filter((s) => typeof s.hasScoreboard !== 'boolean').length, 0)
-check('hasGalleries present for all 141', schools.filter((s) => typeof s.hasGalleries !== 'boolean').length, 0)
-check('captureDate is 2026-06-03 for all 141', schools.filter((s) => s.captureDate !== '2026-06-03').length, 0)
+check('hasScoreboard present for all 148', schools.filter((s) => typeof s.hasScoreboard !== 'boolean').length, 0)
+check('hasGalleries present for all 148', schools.filter((s) => typeof s.hasGalleries !== 'boolean').length, 0)
+check('captureDate is 2026-06-03 for all 148', schools.filter((s) => s.captureDate !== '2026-06-03').length, 0)
 
 // Mobile sticky is a conference template: MIAA + Sun are all "No", rest "Yes".
-// Sheet-wide that is 20 No — but 6 of the 7 schools missing from the site
-// are MIAA sticky-No schools, so on the 141 live here it is 14 No / 127 Yes.
+// Sheet-wide that is 20 No / 128 Yes — and all 20 No schools are on the
+// site now, since the 6 missing MIAA schools (all sticky-No) are in.
 const stickyNo = schools.filter((s) => s.mobileSticky === 'No')
-check('mobileSticky No count', stickyNo.length, 14)
+check('mobileSticky No count', stickyNo.length, 20)
 check('mobileSticky No are all MIAA or Sun',
   stickyNo.filter((s) => !['MIAA', 'The Sun Conference'].includes(s.conf)).length, 0)
-check('mobileSticky Yes count', schools.filter((s) => s.mobileSticky === 'Yes').length, 127)
+check('mobileSticky Yes count', schools.filter((s) => s.mobileSticky === 'Yes').length, 128)
 
 // Gender balance is real Sheet data with 3 variants, not one hardcoded value.
 const genders = [...new Set(schools.map((s) => s.genderBalance))].sort()
@@ -94,9 +97,9 @@ check('Fort Hays (Athlete Spotlight) → Identity / brand', themeFor('Athlete Sp
 // Every school's narrative maps to a known theme (no undefined).
 const themes = new Set(schools.map((s) => themeFor(s.hero)))
 const known = new Set(['Ticket push', 'Honors / academics', 'Celebration / title', 'Coach / staff', 'Schedule release', 'Game action', 'Event / ceremony', 'Recruiting / roster', 'Identity / brand', 'School news'])
-check('all 141 themes are known', [...themes].filter((t) => !known.has(t)).length, 0)
+check('all 148 themes are known', [...themes].filter((t) => !known.has(t)).length, 0)
 
-// --- emphasisFor / pillarSignals / ideasFromSchool for all 141 -------------
+// --- emphasisFor / pillarSignals / ideasFromSchool for all 148 -------------
 let emphasisBad = 0
 let pillarBad = 0
 let ideasBad = 0
@@ -114,9 +117,9 @@ for (const s of schools) {
     if (!idea.angle || !idea.evidence || !idea.stealIt || !idea.ideaKey) ideasBad++
   }
 }
-check('emphasisFor valid for all 141 (bad)', emphasisBad, 0)
-check('pillarSignals valid for all 141 (bad)', pillarBad, 0)
-check('ideasFromSchool 1–2 valid ideas for all 141 (bad)', ideasBad, 0)
+check('emphasisFor valid for all 148 (bad)', emphasisBad, 0)
+check('pillarSignals valid for all 148 (bad)', pillarBad, 0)
+check('ideasFromSchool 1–2 valid ideas for all 148 (bad)', ideasBad, 0)
 
 // Spot checks on the derived ideas.
 const nd = ideasFromSchool(byName('Notre Dame Fighting Irish'))
@@ -125,10 +128,13 @@ const ind = ideasFromSchool(byName('Indiana Hoosiers'))
 check('Indiana idea angle is Floating ticket pane', ind[0].angle, 'Floating ticket pane')
 const dick = ideasFromSchool(byName('Dickinson Red Devils'))
 check('Dickinson idea angle is Record chase', dick.some((i) => i.angle === 'Record chase'), true)
+const bama = emphasisFor(byName('Alabama Crimson Tide'))
+check('Alabama emphasis theme is Celebration / title', bama.theme, 'Celebration / title')
+check('Alabama live notes steal mentions the hero ticket sale', /hero/i.test(getLiveNotes(148).steal), true)
 
 // --- live notes --------------------------------------------------------------
-check('liveNotes covers exactly 3 schools', Object.keys(liveNotes).length, 3)
-for (const id of [13, 65, 112]) {
+check('liveNotes covers exactly 10 schools', Object.keys(liveNotes).length, 10)
+for (const id of [13, 65, 112, 142, 143, 144, 145, 146, 147, 148]) {
   const n = getLiveNotes(id)
   check(`liveNotes[${id}] exists`, !!n, true)
   check(`liveNotes[${id}] school id matches`, n && n.schoolId, id)
