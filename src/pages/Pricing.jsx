@@ -10,7 +10,7 @@ const TIERS = [
     cta: 'Start Free',
     ctaStyle: 'outline',
     features: [
-      'Full school directory (141+ schools)',
+      'Full school directory (148 schools)',
       'High-level checklist data for all schools',
       '3 deep-dive profile unlocks per month',
       'Top nav count overview',
@@ -77,7 +77,7 @@ const TIERS = [
 ]
 
 const FAQ = [
-  ['What is Varsity Content?', 'Varsity Content is an independent editorial index that audits the UX and digital content strategy of 141+ collegiate athletics websites — from Power 4 programs to NAIA schools. Every audit covers 26 data fields plus qualitative editorial analysis.'],
+  ['What is Varsity Content?', 'Varsity Content is an independent editorial index that audits the UX and digital content strategy of 148 collegiate athletics websites — from Power 4 programs to NAIA schools. Every audit covers 26 data fields plus qualitative editorial analysis.'],
   ['How is this different from just visiting the websites myself?', 'We\'ve done the work of visiting, capturing, and structuring every site into a consistent framework. Agencies and consultants use us to skip weeks of manual research. The editorial analysis distills practitioner-level UX critique you\'d otherwise pay a consultant to produce.'],
   ['Can I cancel anytime?', 'Yes — all plans are month-to-month. Cancel before your next billing date and you won\'t be charged again.'],
   ['Is there a free trial for Scout or Agency?', 'The Free tier gives you a permanent look at the index with 3 full unlocks per month. We don\'t currently offer time-limited trials for paid plans, but the Free tier should give you a clear sense of the product.'],

@@ -27,10 +27,21 @@
 //   screenshotFile  Screenshot_File_Name (verbatim)
 //   headlineTone    Headline_Tone (verbatim)
 //
-// Schools in the Sheet but NOT in schools.js are skipped, never added.
-// Division/conference labels are NOT taken from the Sheet — schools.js
-// values win, because the Sheet mixes e.g. "Division I" / "NCAA Division I"
-// and "Centennial Conference" / "Centennial".
+// Schools in the Sheet but NOT in schools.js are ADDED as new records,
+// in Sheet order, with the next free ids (142+ for the 7 missing schools
+// added 2026-11-14). A new record is built entirely from its Sheet row:
+// the 15 base keys come from the Sheet columns (url is the bare domain,
+// div is normalized by stripping a leading "NCAA ", navCount is parsed
+// as an integer), and the 20 restored fields come from the same columns
+// as the match path. The one judgment call: love / strengths / areas
+// for a new record are the verbatim Sheet texts, not a hand summary —
+// the original 141 records carry hand-written summaries in those keys
+// and the full Sheet text in loveFull / strengthsFull / areasFull, but
+// no summary exists for the 7, and inventing one would not be verbatim.
+// Division/conference labels for new records are the Sheet values
+// after the div normalization above; for matched schools, schools.js
+// values still win, because the Sheet mixes e.g. "Division I" /
+// "NCAA Division I" and "Centennial Conference" / "Centennial".
 
 import { readFileSync, writeFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
@@ -81,6 +92,19 @@ const idx = (name) => {
 }
 const C = {
   name: idx('School_Name'),
+  // Base keys (only used when creating a record for a Sheet row that
+  // has no schools.js entry yet).
+  url: idx('Athletic_URL'),
+  conf: idx('Conference'),
+  div: idx('Division'),
+  cms: idx('CMS_Provider'),
+  hero: idx('Hero_Text_Narrative'),
+  navCount: idx('Primary_Nav_Item_Count'),
+  hasNIL: idx('Has_Donation_NIL_Link'),
+  hasTickets: idx('Has_Buy_Tickets_CTA'),
+  hasLiveStream: idx('Has_Live_Stream_Link'),
+  streaming: idx('Streaming_Platform'),
+  // Restored fields.
   heroCopy: idx('Hero_Copy_Text'),
   headline: idx('Top_Headline_1_Text'),
   headlineCategory: idx('Top_Headline_1_Category'),
@@ -109,12 +133,11 @@ for (const r of rows.slice(1)) {
 }
 
 const { schools } = await import(dataPath)
-let matched = 0
-const unmatchedInCode = []
-for (const s of schools) {
-  const r = sheetByName.get(s.name)
-  if (!r) { unmatchedInCode.push(s.name); continue }
-  matched++
+
+// The 20 restored fields, set on a record (existing or newly built)
+// from its Sheet row. Verbatim strings stay verbatim; Yes/No become
+// booleans; captureDate keeps the date part only.
+function enrich(s, r) {
   s.heroCopy = (r[C.heroCopy] || '').trim()
   s.headline = (r[C.headline] || '').trim()
   s.headlineCategory = (r[C.headlineCategory] || '').trim()
@@ -137,7 +160,46 @@ for (const s of schools) {
   s.headlineTone = (r[C.headlineTone] || '').trim()
 }
 
+let matched = 0
+const unmatchedInCode = []
+for (const s of schools) {
+  const r = sheetByName.get(s.name)
+  if (!r) { unmatchedInCode.push(s.name); continue }
+  matched++
+  enrich(s, r)
+}
+
+// Sheet rows with no schools.js entry become new records, in Sheet
+// order, with the next free ids. Key order matches the existing
+// records (15 base keys, then the 20 restored fields).
 const skipped = [...sheetByName.keys()].filter(n => !schools.some(s => s.name === n))
+let nextId = schools.reduce((m, s) => Math.max(m, s.id), 0) + 1
+const created = []
+for (const name of skipped) {
+  const r = sheetByName.get(name)
+  const s = {
+    id: nextId++,
+    name,
+    conf: (r[C.conf] || '').trim(),
+    div: (r[C.div] || '').trim().replace(/^NCAA\s+/, ''),
+    cms: (r[C.cms] || '').trim(),
+    url: (r[C.url] || '').trim().replace(/^https?:\/\//, '').replace(/\/$/, ''),
+    hero: (r[C.hero] || '').trim(),
+    navCount: parseInt((r[C.navCount] || '0').trim(), 10) || 0,
+    hasNIL: yesNo(r[C.hasNIL] || ''),
+    hasTickets: yesNo(r[C.hasTickets] || ''),
+    hasLiveStream: yesNo(r[C.hasLiveStream] || ''),
+    streaming: (r[C.streaming] || '').trim(),
+    // No hand summary exists for these schools: the editorial blocks
+    // carry the verbatim Sheet text (same value as the *Full keys).
+    love: (r[C.loveFull] || '').trim(),
+    strengths: (r[C.strengthsFull] || '').trim(),
+    areas: (r[C.areasFull] || '').trim(),
+  }
+  enrich(s, r)
+  schools.push(s)
+  created.push(`${s.id} ${name}`)
+}
 const out = 'export const schools = [\n' +
   schools.map(s => '  ' + JSON.stringify(s)).join(',\n') + '\n]\n'
 writeFileSync(dataPath, out)
@@ -146,5 +208,5 @@ console.log(`Sheet rows (excl. header): ${rows.length - 1}`)
 console.log(`Schools in schools.js: ${schools.length}`)
 console.log(`Matched by School_Name: ${matched}`)
 console.log(`Schools in code with NO Sheet row: ${unmatchedInCode.length ? unmatchedInCode.join(' | ') : 'none'}`)
-console.log(`Sheet rows skipped (not in schools.js): ${skipped.length}`)
-skipped.forEach(n => console.log(`  skipped: ${n}`))
+console.log(`New records created from Sheet rows: ${created.length}`)
+created.forEach(n => console.log(`  created: ${n}`))

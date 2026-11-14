@@ -16,8 +16,22 @@
 // Proof track examples: Dickinson (record chase), Cincinnati (coach
 // extension), Mount Marty (All-American), WVU Tech (freshman) → feature.
 //
-// Counts below are the verified counts over the 141-school capture.
+// Counts below are the verified counts over the 148-school capture
+// (141 + the 7 missing schools added 2026-11-14).
 // If the data changes, these fail loudly on purpose.
+//
+// The 7 new schools classify as: feature 2 (Rogers State academic
+// honours, Washburn conference title), preview 1 (Central Oklahoma —
+// its hero copy "Broncho Football Prepares for Opener" beats the
+// headline staff addition, the same best-candidate behaviour as
+// Baylor), game 1 (Missouri Southern sweep), unclear 3 (Alabama
+// "Secures Top-Seed Berth" — a berth announcement no rule covers;
+// Central Missouri "Shines At National Preview Meet" — a result
+// verb at an event named a preview meet; Newman "Soar Past Opponent"
+// — a result verb the game rules do not list). The unclear bucket
+// saying "needs a human look" is the honest output for all three;
+// adding a "soar past" game rule is a possible future tweak, not
+// part of the add-schools change.
 
 import { schools } from '../src/data/schools.js'
 import {
@@ -76,6 +90,13 @@ check('Notre Dame feed item → feature (headline award beats hero ticket ad)', 
 check('Clemson feed item → feature (headline title beats hero signing)', feedKind('Clemson Tigers'), 'feature')
 check('Baylor feed item → announcement (hero ticket ad beats postgame headline)', feedKind('Baylor Bears'), 'announcement')
 check('Fort Hays feed item → preview (headline preview beats hero result line)', feedKind('Fort Hays State Tigers'), 'preview')
+check('Central Oklahoma feed item → preview (hero copy "Prepares for Opener" beats headline staff addition)', feedKind('Central Oklahoma Bronchos'), 'preview')
+check('Missouri Southern feed item → game (sweep headline)', feedKind('Missouri Southern Lions'), 'game')
+check('Rogers State feed item → feature (postseason academic honours)', feedKind('Rogers State Hillcats'), 'feature')
+check('Washburn feed item → feature (conference title)', feedKind('Washburn Ichabods'), 'feature')
+check('Alabama feed item → unclear (berth announcement, no rule matches)', feedKind('Alabama Crimson Tide'), 'unclear')
+check('Central Missouri feed item → unclear (result verb at a "Preview Meet")', feedKind('Central Missouri Mules'), 'unclear')
+check('Newman feed item → unclear ("soar past" is not a game rule)', feedKind('Newman Jets'), 'unclear')
 
 // --- Sport normalisation ----------------------------------------------------
 check("normalizeSport('Track & field')", normalizeSport('Track & field'), 'Track & Field')
@@ -86,16 +107,16 @@ check("normalizeSport('Baseball')", normalizeSport('Baseball'), 'Baseball')
 // --- Feed shape + counts ------------------------------------------------------
 const feed = buildNewsFeed()
 const counts = newsCounts()
-check('feed has one item per school', feed.length, 141)
-check('feed schoolIds are unique', new Set(feed.map((i) => i.schoolId)).size, 141)
-check('total schools', counts.total, 141)
-check('feature items', counts.feature, 83)
+check('feed has one item per school', feed.length, 148)
+check('feed schoolIds are unique', new Set(feed.map((i) => i.schoolId)).size, 148)
+check('total schools', counts.total, 148)
+check('feature items', counts.feature, 85)
 check('announcement items', counts.announcement, 22)
-check('preview items', counts.preview, 10)
-check('game items', counts.game, 24)
-check('unclear items', counts.unclear, 2)
+check('preview items', counts.preview, 11)
+check('game items', counts.game, 25)
+check('unclear items', counts.unclear, 5)
 const unclear = feed.filter((i) => i.kind === 'unclear').map((i) => i.schoolName).sort()
-check('unclear items are Texas Tech + Whitman', JSON.stringify(unclear), JSON.stringify(['Texas Tech Red Raiders', 'Whitman Blues']))
+check('unclear items are Alabama + Central Missouri + Newman + Texas Tech + Whitman', JSON.stringify(unclear), JSON.stringify(['Alabama Crimson Tide', 'Central Missouri Mules', 'Newman Jets', 'Texas Tech Red Raiders', 'Whitman Blues']))
 check('feed is A–Z by school', JSON.stringify(feed.map((i) => i.schoolName)) === JSON.stringify([...feed.map((i) => i.schoolName)].sort((a, b) => a.localeCompare(b))), true)
 
 console.log('\n--- Feed counts ---')

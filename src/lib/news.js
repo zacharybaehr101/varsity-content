@@ -286,7 +286,7 @@ export function normalizeSport(category = '') {
 
 // --- Feed model ------------------------------------------------------------
 // One item per school maximum (the best candidate per school), so the feed
-// is at most 141 items — a clean "one idea per school" list. Candidates
+// is at most 148 items — a clean "one idea per school" list. Candidates
 // are the top headline and the hero copy; the more feature-like one wins
 // (feature > announcement > preview > game > unclear), headline on ties.
 // Generic hero brand lines ("Welcome to Aggieland", "Go Gators: Official
