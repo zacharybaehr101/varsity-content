@@ -88,6 +88,9 @@ export default function Ideas() {
               </Link>
             </div>
           )}
+          <div className={styles.savedLink}>
+            <Link to="/news">Browse the feature-story feed →</Link>
+          </div>
         </div>
       </div>
 
