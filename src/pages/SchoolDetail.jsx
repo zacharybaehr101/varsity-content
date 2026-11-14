@@ -1,5 +1,10 @@
+import { useState, useEffect } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { schools } from '../data/schools'
+import { ideaFromEvidence } from '../lib/ideas'
+import {
+  loadSaved, toggleSave, addChecklistItem, IDEAS_CHANGED_EVENT,
+} from '../lib/myIdeas'
 import styles from './SchoolDetail.module.css'
 
 const DIV_COLORS = {
@@ -16,11 +21,49 @@ function getInitials(name) {
 export default function SchoolDetail() {
   const { id } = useParams()
   const school = schools.find(s => s.id === parseInt(id))
+  const [savedKeys, setSavedKeys] = useState(() => new Set(loadSaved().map(s => s.ideaKey)))
+  const [gapAdded, setGapAdded] = useState(false)
+
+  useEffect(() => {
+    const refresh = () => setSavedKeys(new Set(loadSaved().map(s => s.ideaKey)))
+    window.addEventListener(IDEAS_CHANGED_EVENT, refresh)
+    return () => window.removeEventListener(IDEAS_CHANGED_EVENT, refresh)
+  }, [])
 
   if (!school) return <Navigate to="/index" />
 
   const div = DIV_COLORS[school.div] || DIV_COLORS['Division I']
   const initials = getInitials(school.name)
+
+  // One idea per editorial block, derived from the block's own text.
+  const blockIdea = (text, source) => ideaFromEvidence(school, text, source)
+  const loveIdea = blockIdea(school.loveFull || school.love, 'What We Love')
+  const strengthsIdea = blockIdea(school.strengthsFull || school.strengths, 'Strengths')
+  const areasIdea = blockIdea(school.areasFull || school.areas, 'Areas of Opportunity')
+
+  const handleToggleSave = (idea) => {
+    const { saved } = toggleSave(idea)
+    setSavedKeys(new Set(saved.map(s => s.ideaKey)))
+  }
+
+  const handleAddGap = () => {
+    addChecklistItem({
+      label: `Fix: ${school.areas}`,
+      source: 'gap',
+      schoolId: school.id,
+      ideaKey: areasIdea.ideaKey,
+    })
+    setGapAdded(true)
+  }
+
+  const saveBtn = (idea) => (
+    <button
+      className={`${styles.ideaBtn} ${savedKeys.has(idea.ideaKey) ? styles.ideaSaved : ''}`}
+      onClick={() => handleToggleSave(idea)}
+    >
+      {savedKeys.has(idea.ideaKey) ? '✓ Saved to My Ideas' : '＋ Save this as an idea'}
+    </button>
+  )
 
   const fields = [
     ['Conference', school.conf],
@@ -106,6 +149,7 @@ export default function SchoolDetail() {
                 <h2 className={styles.blockTitle}>What We Love</h2>
               </div>
               <p className={styles.blockText}>{school.love}</p>
+              <div className={styles.blockActions}>{saveBtn(loveIdea)}</div>
             </div>
 
             <div className={styles.analysisBlock}>
@@ -114,6 +158,7 @@ export default function SchoolDetail() {
                 <h2 className={styles.blockTitle}>Strengths & Highlights</h2>
               </div>
               <p className={styles.blockText}>{school.strengths}</p>
+              <div className={styles.blockActions}>{saveBtn(strengthsIdea)}</div>
             </div>
 
             <div className={styles.analysisBlock} style={{borderLeftColor: '#d4820a'}}>
@@ -122,6 +167,16 @@ export default function SchoolDetail() {
                 <h2 className={styles.blockTitle}>Areas of Opportunity</h2>
               </div>
               <p className={styles.blockText}>{school.areas}</p>
+              <div className={styles.blockActions}>
+                {saveBtn(areasIdea)}
+                <button
+                  className={styles.gapBtn}
+                  onClick={handleAddGap}
+                  disabled={gapAdded}
+                >
+                  {gapAdded ? '✓ Added to checklist' : '＋ Add this gap to my checklist'}
+                </button>
+              </div>
             </div>
 
             {/* SCREENSHOT PLACEHOLDER */}

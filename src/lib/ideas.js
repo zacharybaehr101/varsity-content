@@ -146,7 +146,7 @@ function queryTerms(query) {
 // Angle labels are derived from the evidence text only — never invented.
 // Look at the whole audit record, not just the single best-scoring field:
 // Indiana's angle lives in What We Love, WVU Tech's in the hero copy.
-function deriveAngle(school, evidence, intentId) {
+export function deriveAngle(school, evidence, intentId) {
   const t = `${school.heroCopy || ''} ${school.headline || ''} ${school.loveFull || school.love || ''} ${school.strengthsFull || school.strengths || ''} ${school.areasFull || school.areas || ''} ${school.headlineCategory || ''}`.toLowerCase()
   if (/floating ticket/.test(t)) return 'Floating ticket pane'
   if (/ticketing provider/.test(t)) return 'Branded ticketing block'
@@ -194,6 +194,92 @@ const EFFORT = {
 
 function slug(s) {
   return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+}
+
+// Build an idea object from one editorial block of a school record
+// (used by the school detail page's "Save this as an idea" buttons).
+export function ideaFromEvidence(school, evidence, evidenceSource) {
+  const angle = deriveAngle(school, evidence, null)
+  const ideaKey = `${school.id}-${slug(angle)}`
+  return {
+    id: ideaKey,
+    ideaKey,
+    schoolId: school.id,
+    school,
+    name: school.name,
+    division: school.div,
+    conference: school.conf,
+    cms: school.cms,
+    url: school.url,
+    angle,
+    evidence: (evidence || '').trim(),
+    evidenceSource,
+    stealIt: STEAL_IT[angle] || STEAL_IT['From the audit'],
+    effort: EFFORT[`${school.name}|${angle}`] || null,
+    captureDate: CAPTURE_DATE,
+  }
+}
+
+// Re-derive one idea from a school record, for migrating legacy minimal
+// saves ({schoolId, ideaKey, savedAt}) that carry no angle/evidence.
+// The angle is re-derived from the audit text; the evidence is the first
+// quotable field containing the angle's keywords. Returns null when the
+// school is not in the list.
+const ANGLE_EVIDENCE_KEYS = {
+  'Floating ticket pane': ['floating ticket'],
+  'Branded ticketing block': ['ticketing provider'],
+  'One grid: results + tickets + media': ['dynamic grid'],
+  'Mobile check — ticket ribbon': ['ticket ribbon', 'compression on narrower'],
+  'Cautionary: ticket widget crowds out news': ['dominates the fold', 'ticket-booking'],
+  'Bundle tickets with gameday': ['tailgat'],
+  'Hero as announcement': ['on sale', 'now available'],
+  'Record chase': ['three peat', 'national title', '800m'],
+  'Coach as story': ['coach of the year', 'extends', 'head coach'],
+  'Small-school All-American': ['all-american'],
+  'Freshman breakthrough': ['freshman', 'record-setting'],
+  'Team title': ['championship', 'title', 'record streak'],
+  'Track feature story': ['track'],
+  'Ticket idea': ['ticket'],
+  'From the audit': [],
+}
+
+export function getIdeaByKey(schoolId, ideaKey, list) {
+  const school = (list || []).find((s) => s.id === schoolId)
+  if (!school) return null
+  const suffix = String(ideaKey || '').replace(`${schoolId}-`, '')
+  let angle = deriveAngle(school, '', null)
+  if (slug(angle) !== suffix) {
+    const known = Object.keys(STEAL_IT).find((a) => slug(a) === suffix)
+    angle = known || angle
+  }
+  const quotable = [
+    { key: 'heroCopy', label: 'Hero copy', text: school.heroCopy || '' },
+    { key: 'headline', label: 'Top headline', text: school.headline || '' },
+    { key: 'loveFull', label: 'What We Love', text: school.loveFull || school.love || '' },
+    { key: 'strengthsFull', label: 'Strengths', text: school.strengthsFull || school.strengths || '' },
+    { key: 'areasFull', label: 'Areas of Opportunity', text: school.areasFull || school.areas || '' },
+  ]
+  const keywords = ANGLE_EVIDENCE_KEYS[angle] || []
+  const best = quotable.find((f) =>
+    keywords.some((k) => f.text.toLowerCase().includes(k))
+  ) || quotable[2]
+  return {
+    id: ideaKey,
+    ideaKey,
+    schoolId: school.id,
+    school,
+    name: school.name,
+    division: school.div,
+    conference: school.conf,
+    cms: school.cms,
+    url: school.url,
+    angle,
+    evidence: best.text.trim(),
+    evidenceSource: best.label,
+    stealIt: STEAL_IT[angle] || STEAL_IT['From the audit'],
+    effort: EFFORT[`${school.name}|${angle}`] || null,
+    captureDate: CAPTURE_DATE,
+  }
 }
 
 export function searchIdeas(query, { division = '', conference = '', list = null } = {}) {
