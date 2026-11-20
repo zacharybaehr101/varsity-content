@@ -30,13 +30,14 @@
 //   - contains no hardcoded audit values: no 'Image' / 'Balanced' /
 //     'Top' literals in the fields list — every field reads school.*
 //   - wires the new sections: words-first quote, media, pillars,
-//     ideas, compare picker, capture line, screenshot file name
+//     ideas, compare picker, capture line (no screenshot references)
 //
 // If the data changes, these fail loudly on purpose.
 
 import { readFileSync } from 'node:fs'
 import { schools } from '../src/data/schools.js'
 import { themeFor, emphasisFor, pillarSignals, ideasFromSchool } from '../src/lib/schoolPage.js'
+import { ideaFromEvidence, getIdeaByKey } from '../src/lib/ideas.js'
 import { liveNotes, getLiveNotes } from '../src/data/liveNotes.js'
 
 let passed = 0
@@ -159,8 +160,28 @@ check('page has no hardcoded Scoreboard Top', page.includes("['Scoreboard Positi
 check('page has no hardcoded Mobile Sticky Yes', page.includes("['Mobile Sticky Tickets', 'Yes']"), false)
 check('page has no hardcoded Lazy Loading No', page.includes("['Lazy Loading Issues', 'No']"), false)
 check('page has no hardcoded Scoreboard Yes', page.includes("['Has Live Scoreboard', 'Yes']"), false)
-for (const frag of ['school.heroAssetType', 'school.scoreboardPosition', 'school.genderBalance', 'school.lazyLoading', 'school.mobileSticky', 'school.hasGalleries', 'school.captureDate', 'school.screenshotFile', 'emphasis.headlineTone', 'emphasisFor', 'pillarSignals', 'ideasFromSchool', 'getLiveNotes', 'compareId', 'In their own words', 'The four pillars', 'Ideas from this school', 'Compare']) {
+for (const frag of ['school.heroAssetType', 'school.scoreboardPosition', 'school.genderBalance', 'school.lazyLoading', 'school.mobileSticky', 'school.hasGalleries', 'school.captureDate', 'emphasis.headlineTone', 'emphasisFor', 'pillarSignals', 'ideasFromSchool', 'getLiveNotes', 'compareId', 'In their own words', 'The four pillars', 'Ideas from this school', 'Compare']) {
   check(`page wires ${frag}`, page.includes(frag), true)
+}
+// Screenshots are not referenced anywhere on the page (2026-11-14: the
+// screenshot placeholder block was removed; the data field stays in schools.js).
+check('page has no screenshot references', /screenshot/i.test(page), false)
+check('page uses the lightbulb save button', page.includes('IdeaSaveButton'), true)
+// One bulb per block: the three editorial blocks must have distinct idea
+// keys, or saving one lights all three (Nebraska: all three fell back to
+// the "From the audit" angle and shared one key).
+{
+  const nebraska = byName('Nebraska Huskers')
+  const blockKeys = [
+    ideaFromEvidence(nebraska, nebraska.loveFull || nebraska.love, 'What We Love').ideaKey,
+    ideaFromEvidence(nebraska, nebraska.strengthsFull || nebraska.strengths, 'Strengths').ideaKey,
+    ideaFromEvidence(nebraska, nebraska.areasFull || nebraska.areas, 'Areas of Opportunity').ideaKey,
+  ]
+  check('school page block ideas have distinct keys', new Set(blockKeys).size, 3)
+  check('new-format key migrates to the right block',
+    getIdeaByKey(1, blockKeys[1], schools).evidenceSource, 'Strengths')
+  check('legacy key still migrates as before',
+    getIdeaByKey(1, '1-from-the-audit', schools).evidenceSource, 'What We Love')
 }
 
 console.log(`\n${passed} passed, ${failed} failed`)

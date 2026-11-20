@@ -3,6 +3,7 @@
   --brand-dark: #A01A1A;
   --gold: #F7B731;
   --ink: #1a1a1a;
+  --page: #e9e2d2;
   --surface: #f8f7f4;
   --surface-2: #f0ede8;
   --card: #ffffff;
@@ -17,7 +18,11 @@ html { scroll-behavior: smooth; }
 
 body {
   font-family: 'Barlow', sans-serif;
-  background: var(--surface);
+  font-size: 16px;
+  line-height: 1.6;
+  /* Deeper page surround (ParishVox-style): the content panels sit on a
+     light surface so the eye can track where the body starts and ends. */
+  background: var(--page);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
 }
@@ -30,7 +35,7 @@ button { cursor: pointer; font-family: inherit; border: none; }
 
 select, input {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
 }
 

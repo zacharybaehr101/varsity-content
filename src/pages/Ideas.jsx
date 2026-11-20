@@ -3,6 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { schools } from '../data/schools'
 import { searchIdeas, SUGGESTED_CHIPS, CAPTURE_DATE } from '../lib/ideas'
 import { loadSaved, toggleSave as toggleSaveIdea, IDEAS_CHANGED_EVENT } from '../lib/myIdeas'
+import IdeaSaveButton from '../components/IdeaSaveButton'
 import styles from './Ideas.module.css'
 
 const PAGE_SIZE = 12
@@ -126,7 +127,6 @@ export default function Ideas() {
 
         {!query && (
           <div className={styles.empty}>
-            <div className={styles.emptyIcon}>💡</div>
             <div className={styles.emptyText}>
               Try a prompt above — or ask for anything your department is working on this week.
             </div>
@@ -135,7 +135,6 @@ export default function Ideas() {
 
         {query && results.length === 0 && (
           <div className={styles.empty}>
-            <div className={styles.emptyIcon}>🏟</div>
             <div className={styles.emptyText}>No ideas matched that yet. Try one of the example prompts above.</div>
           </div>
         )}
@@ -162,12 +161,10 @@ export default function Ideas() {
                   <strong>Steal it:</strong> {idea.stealIt}
                 </p>
                 <div className={styles.cardActions}>
-                  <button
-                    className={`${styles.saveBtn} ${savedKeys.has(idea.ideaKey) ? styles.saved : ''}`}
-                    onClick={() => toggleSave(idea)}
-                  >
-                    {savedKeys.has(idea.ideaKey) ? '✓ Saved' : '＋ Save idea'}
-                  </button>
+                  <IdeaSaveButton
+                    saved={savedKeys.has(idea.ideaKey)}
+                    onToggle={() => toggleSave(idea)}
+                  />
                   <Link to={`/school/${idea.schoolId}`} className={styles.schoolLink}>
                     View school →
                   </Link>

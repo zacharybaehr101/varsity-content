@@ -13,7 +13,7 @@
 
 .eyebrow {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -32,7 +32,7 @@
 
 .sub {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   color: rgba(255,255,255,0.5);
   max-width: 640px;
   line-height: 1.5;
@@ -41,7 +41,7 @@
 
 .honestNote {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   color: rgba(255,255,255,0.65);
   max-width: 640px;
   line-height: 1.5;
@@ -51,13 +51,17 @@
 
 .container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px 64px;
+  margin: 24px auto;
+  padding: 24px 24px 64px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
 
 .captureNote {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
   padding: 16px 0 4px;
 }
@@ -84,7 +88,7 @@
 
 .search {
   font-family: 'Barlow', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   padding: 8px 12px;
   border: 1px solid var(--border);
   border-radius: 3px;
@@ -98,7 +102,7 @@
 
 .select {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   padding: 8px 10px;
   border: 1px solid var(--border);
@@ -113,7 +117,7 @@
 
 .clearBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   padding: 8px 12px;
@@ -127,14 +131,14 @@
 
 .resultCount {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.5px;
 }
 
 .resultCount strong {
-  font-size: 18px;
+  font-size: 20px;
   color: var(--brand);
 }
 
@@ -143,7 +147,7 @@
   gap: 8px;
   align-items: flex-start;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--muted);
   margin: 4px 0 16px;
@@ -179,7 +183,7 @@
 
 .sportTag {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -191,7 +195,7 @@
 
 .kindTag {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -203,7 +207,7 @@
 
 .reason {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.5px;
   color: var(--muted);
@@ -219,14 +223,14 @@
 
 .meta {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--muted);
   margin: 6px 0 12px;
 }
 
 .why {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.6;
   color: #333;
   border-left: 3px solid var(--gold);
@@ -241,31 +245,9 @@
   flex-wrap: wrap;
 }
 
-.saveBtn {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--brand);
-  padding: 8px 16px;
-  border: 1px solid rgba(214,40,40,0.4);
-  border-radius: 3px;
-  background: none;
-  transition: background 0.15s, color 0.15s;
-}
-
-.saveBtn:hover { background: rgba(214,40,40,0.06); }
-
-.saveBtn.saved {
-  background: var(--brand);
-  color: #fff;
-  border-color: var(--brand);
-}
-
 .schoolLink {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--brand);
@@ -283,11 +265,9 @@
   gap: 12px;
 }
 
-.emptyIcon { font-size: 40px; }
-
 .emptyText {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 1px;
   color: var(--muted);
@@ -302,7 +282,7 @@
 
 .moreBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;

@@ -135,10 +135,14 @@ export function ideasFromSchool(school) {
   const push = (evidence, source) => {
     const text = (evidence || '').trim()
     if (!text) return
-    const idea = ideaFromEvidence(school, text, source)
-    if (seen.has(idea.ideaKey)) return
-    seen.add(idea.ideaKey)
-    out.push(idea)
+    // Dedupe on the evidence itself, not the idea key: a school's hero
+    // copy and top headline are often the same words, and the key now
+    // carries the source field, so key-based dedupe would show the same
+    // quote twice.
+    const norm = text.toLowerCase()
+    if (seen.has(norm)) return
+    seen.add(norm)
+    out.push(ideaFromEvidence(school, text, source))
   }
   push(school.heroCopy, 'Hero copy')
   push(school.headline, 'Top headline')

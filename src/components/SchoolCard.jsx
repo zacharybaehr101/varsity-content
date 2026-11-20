@@ -12,15 +12,6 @@ function getInitials(name) {
   return name.split(' ').filter(w => w.length > 2).slice(0, 2).map(w => w[0]).join('')
 }
 
-// Try to find a screenshot image based on the school's URL/name pattern
-function getSchoolImage(school) {
-  // Virginia has a specific screenshot we have
-  if (school.url && school.url.includes('virginia')) {
-    return '/screenshots/virginiasports.png'
-  }
-  return null
-}
-
 export default function SchoolCard({ school, locked, index }) {
   const div = DIV_COLORS[school.div] || DIV_COLORS['Division I']
   const initials = getInitials(school.name)
@@ -43,7 +34,7 @@ export default function SchoolCard({ school, locked, index }) {
 
         {locked ? (
           <div className={styles.locked}>
-            <div className={styles.lockedIcon}>🔒</div>
+            <div className={styles.lockedIcon}>Locked</div>
             <div className={styles.lockedText}>Deep-dive analysis locked</div>
             <Link to="/pricing" className={styles.unlockBtn}>
               Unlock with Scout — $39/mo ↗
@@ -52,11 +43,11 @@ export default function SchoolCard({ school, locked, index }) {
         ) : (
           <>
             <div className={styles.love}>
-              <span className={styles.loveLabel}>⭐ What We Love</span>
+              <span className={styles.loveLabel}>What We Love</span>
               <p>{school.love}</p>
             </div>
             <div className={styles.areas}>
-              <span className={styles.areasLabel}>⚠ Areas of Opportunity</span>
+              <span className={styles.areasLabel}>Areas of Opportunity</span>
               <p>{school.areas}</p>
             </div>
             <Link to={`/school/${school.id}`} className={styles.detailBtn}>

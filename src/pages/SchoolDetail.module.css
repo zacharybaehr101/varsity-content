@@ -13,7 +13,7 @@
   align-items: center;
   gap: 8px;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.5px;
   color: var(--muted);
@@ -67,7 +67,7 @@
 
 .divBadge {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 1px;
   padding: 2px 8px;
@@ -76,7 +76,7 @@
 
 .confBadge {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: rgba(255,255,255,0.4);
   padding: 2px 8px;
@@ -95,7 +95,7 @@
 
 .urlLink {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: rgba(255,255,255,0.35);
   transition: color 0.15s;
@@ -105,7 +105,7 @@
 
 .visitBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -119,11 +119,16 @@
 
 .visitBtn:hover { background: var(--brand-dark); }
 
-/* CONTAINER */
+/* CONTAINER — light panel on the deeper page surround (ParishVox-style),
+   so the eye can track where the body starts and ends. */
 .container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 24px auto;
   padding: 32px 24px 64px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
 
 .grid {
@@ -154,11 +159,11 @@
   margin-bottom: 10px;
 }
 
-.blockIcon { font-size: 16px; }
+.blockSave { margin-left: auto; display: flex; align-items: center; }
 
 .blockTitle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -166,7 +171,7 @@
 }
 
 .blockText {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.65;
   color: #444;
 }
@@ -178,38 +183,18 @@
   margin-top: 14px;
 }
 
-.ideaBtn {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--brand);
-  padding: 7px 14px;
-  border: 1px solid rgba(214,40,40,0.4);
-  border-radius: 3px;
-  background: none;
-}
-
-.ideaBtn:hover { background: rgba(214,40,40,0.06); }
-
-.ideaBtn.ideaSaved {
-  background: var(--brand);
-  color: #fff;
-  border-color: var(--brand);
-}
-
+/* Quiet text-link style: the gap action must not outshine the idea. */
 .gapBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--ink);
-  padding: 7px 14px;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  background: var(--surface-2);
+  letter-spacing: 1px;
+  color: var(--muted);
+  padding: 4px 0;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+  background: none;
 }
 
 .gapBtn:hover:not(:disabled) { color: var(--brand); border-color: var(--brand); }
@@ -218,49 +203,6 @@
   color: #2a8a4a;
   border-color: #9ed0ab;
   cursor: default;
-}
-
-/* SCREENSHOT */
-.screenshotBox {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.screenshotLabel {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  color: var(--muted);
-  padding: 10px 16px;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.screenshotPlaceholder {
-  height: 200px;
-  background: var(--surface-2);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-.screenshotInitials {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 48px;
-  letter-spacing: 4px;
-  color: rgba(0,0,0,0.12);
-}
-
-.screenshotUrl {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--muted);
 }
 
 /* SIDEBAR */
@@ -279,7 +221,7 @@
 
 .dataCardTitle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -302,7 +244,7 @@
 
 .dataKey {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.3px;
@@ -310,7 +252,7 @@
 
 .dataVal {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--ink);
   text-align: right;
@@ -330,7 +272,7 @@
 
 .exportTitle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -339,7 +281,7 @@
 }
 
 .exportDesc {
-  font-size: 12px;
+  font-size: 14px;
   color: #8a6800;
   line-height: 1.5;
   margin-bottom: 12px;
@@ -349,7 +291,7 @@
   display: block;
   text-align: center;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -374,7 +316,7 @@
 
 .schoolNavBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--muted);
@@ -386,7 +328,7 @@
 
 .schoolNavIndex {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -408,7 +350,7 @@
 /* CAPTURE LINE */
 .captureLine {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.5px;
   color: rgba(255,255,255,0.5);
@@ -426,7 +368,7 @@
 
 .sectionKicker {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -436,7 +378,7 @@
 
 .heroQuote {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px;
+  font-size: 32px;
   line-height: 1.15;
   letter-spacing: 0.5px;
   color: var(--ink);
@@ -444,7 +386,7 @@
 }
 
 .headlineLine {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   color: #444;
   margin-bottom: 10px;
@@ -459,7 +401,7 @@
 
 .chip {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.5px;
   color: var(--muted);
@@ -470,7 +412,7 @@
 }
 
 .emphasisLine {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.6;
   color: #444;
   border-top: 1px solid var(--border);
@@ -488,7 +430,7 @@
 
 .sectionTitle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -497,7 +439,7 @@
 }
 
 .noteLine {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.55;
   color: var(--muted);
   margin: 0 0 12px;
@@ -526,14 +468,14 @@
 
 .factLabel {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--muted);
 }
 
 .factValue {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--ink);
   text-align: right;
@@ -546,7 +488,7 @@
 
 .liveLabel {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -559,14 +501,14 @@
 .liveList > div:last-child { margin-bottom: 0; }
 .liveList dt {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--ink);
 }
 .liveList dd {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.55;
   color: #444;
   margin: 2px 0 0;
@@ -589,7 +531,7 @@
 
 .pillarTitle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
@@ -601,7 +543,7 @@
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  font-size: 12px;
+  font-size: 14px;
   color: #444;
   padding: 3px 0;
 }
@@ -609,14 +551,14 @@
 .pillarFact strong { color: var(--ink); text-align: right; }
 
 .pillarNote {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.5;
   color: var(--muted);
   margin: 8px 0 0;
 }
 
 .pillarLive {
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.55;
   color: #444;
   border-top: 1px solid var(--border);
@@ -625,7 +567,7 @@
 }
 
 .stealLine {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--ink);
   background: #fff8e6;
@@ -636,6 +578,14 @@
 }
 
 /* IDEAS */
+.ideaTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
 .ideaCard {
   border: 1px solid var(--border);
   border-radius: 4px;
@@ -648,16 +598,15 @@
 
 .ideaAngle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--brand);
-  margin-bottom: 6px;
 }
 
 .ideaEvidence {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.5;
   color: var(--ink);
   margin: 0 0 6px;
@@ -665,7 +614,7 @@
 
 .ideaSource {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.5px;
   color: var(--muted);
@@ -673,27 +622,17 @@
 }
 
 .ideaSteal {
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.55;
   color: #444;
   margin: 0 0 10px;
-}
-
-/* SCREENSHOT NOTE */
-.screenshotNote {
-  font-size: 12px;
-  line-height: 1.5;
-  color: var(--muted);
-  padding: 10px 16px;
-  border-top: 1px solid var(--border);
-  background: var(--surface);
 }
 
 /* COMPARE */
 .compareSelect {
   width: 100%;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--ink);
   background: var(--surface-2);
@@ -706,13 +645,13 @@
 .compareTable {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.5;
 }
 
 .compareTable th {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-align: left;
@@ -730,7 +669,7 @@
 
 .compareLabel {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -741,5 +680,5 @@
 @media (max-width: 768px) {
   .pillarGrid { grid-template-columns: 1fr; }
   .factGrid { grid-template-columns: 1fr; }
-  .heroQuote { font-size: 22px; }
+  .heroQuote { font-size: 26px; }
 }

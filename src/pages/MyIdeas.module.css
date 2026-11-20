@@ -13,7 +13,7 @@
 
 .eyebrow {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -32,7 +32,7 @@
 
 .sub {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   color: rgba(255,255,255,0.5);
   max-width: 640px;
   line-height: 1.5;
@@ -45,25 +45,29 @@
   flex-wrap: wrap;
   align-items: center;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 600;
   color: rgba(255,255,255,0.8);
 }
 
-.summary strong { color: #fff; font-size: 18px; }
+.summary strong { color: #fff; font-size: 20px; }
 
 .summaryLink { color: var(--gold); }
 .summaryLink:hover { text-decoration: underline; }
 
 .container {
   max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px 64px;
+  margin: 24px auto;
+  padding: 24px 24px 64px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
 
 .storageNote {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   color: var(--muted);
   padding: 16px 0 4px;
 }
@@ -82,7 +86,7 @@
 
 .sectionSub {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--muted);
   margin-top: 6px;
@@ -112,7 +116,7 @@
 
 .angle {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -124,7 +128,7 @@
 
 .effort {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 1px;
   color: var(--muted);
@@ -132,7 +136,7 @@
 
 .statusBadge {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -158,14 +162,14 @@
 
 .meta {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--muted);
   margin: 6px 0 12px;
 }
 
 .evidence {
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.6;
   color: #333;
   border-left: 3px solid var(--gold);
@@ -175,7 +179,7 @@
 
 .evidence footer {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.5px;
   color: var(--muted);
@@ -183,14 +187,14 @@
 }
 
 .steal {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--ink);
   margin-bottom: 14px;
 }
 
 .unresolved {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.6;
   color: var(--muted);
   font-style: italic;
@@ -200,7 +204,7 @@
 .fieldLabel {
   display: block;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -212,7 +216,7 @@
   display: block;
   margin-top: 6px;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   padding: 8px 10px;
   border: 1px solid var(--border);
@@ -228,7 +232,7 @@
   margin-top: 6px;
   width: 100%;
   font-family: 'Barlow', sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   padding: 10px 12px;
   border: 1px solid var(--border);
   border-radius: 3px;
@@ -249,7 +253,7 @@
 
 .actionBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -264,7 +268,7 @@
 
 .schoolLink {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--brand);
@@ -274,7 +278,7 @@
 
 .removeBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--muted);
@@ -287,7 +291,7 @@
 
 .notice {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--brand);
   margin-top: 12px;
@@ -303,7 +307,7 @@
 
 .kitBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 1px;
   color: #fff;
@@ -316,7 +320,7 @@
 
 .clearBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
   padding: 10px 14px;
@@ -354,7 +358,7 @@
   align-items: flex-start;
   flex: 1;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 17px;
   line-height: 1.5;
   color: var(--ink);
 }
@@ -379,7 +383,7 @@
   align-items: center;
   flex-shrink: 0;
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   color: var(--muted);
   letter-spacing: 0.5px;
@@ -397,7 +401,7 @@
 .addInput {
   flex: 1;
   font-family: 'Barlow', sans-serif;
-  font-size: 15px;
+  font-size: 17px;
   padding: 12px 14px;
   border: 1px solid var(--border);
   border-radius: 3px;
@@ -411,7 +415,7 @@
 
 .addBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -433,11 +437,9 @@
   gap: 12px;
 }
 
-.emptyIcon { font-size: 40px; }
-
 .emptyText {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 1px;
   color: var(--muted);
@@ -446,7 +448,7 @@
 
 .emptyBtn {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, Link, Navigate } from 'react-router-dom'
 import { schools } from '../data/schools'
 import { getLiveNotes } from '../data/liveNotes'
+import IdeaSaveButton from '../components/IdeaSaveButton'
 import { ideaFromEvidence } from '../lib/ideas'
 import { emphasisFor, pillarSignals, ideasFromSchool } from '../lib/schoolPage'
 import {
@@ -72,13 +73,13 @@ export default function SchoolDetail() {
     setGapAdded(true)
   }
 
+  // The idea itself is the clickable save: a quiet lightbulb, not a button
+  // that outshines the idea. Same toggle behavior, smaller footprint.
   const saveBtn = (idea) => (
-    <button
-      className={`${styles.ideaBtn} ${savedKeys.has(idea.ideaKey) ? styles.ideaSaved : ''}`}
-      onClick={() => handleToggleSave(idea)}
-    >
-      {savedKeys.has(idea.ideaKey) ? '✓ Saved to My Ideas' : '＋ Save this as an idea'}
-    </button>
+    <IdeaSaveButton
+      saved={savedKeys.has(idea.ideaKey)}
+      onToggle={() => handleToggleSave(idea)}
+    />
   )
 
   // Every value here is the Sheet's own — no hardcoded audit values.
@@ -199,30 +200,27 @@ export default function SchoolDetail() {
 
             <div className={styles.analysisBlock}>
               <div className={styles.blockHeader}>
-                <span className={styles.blockIcon}>⭐</span>
                 <h2 className={styles.blockTitle}>What We Love</h2>
+                <span className={styles.blockSave}>{saveBtn(loveIdea)}</span>
               </div>
               <p className={styles.blockText}>{school.love}</p>
-              <div className={styles.blockActions}>{saveBtn(loveIdea)}</div>
             </div>
 
             <div className={styles.analysisBlock}>
               <div className={styles.blockHeader}>
-                <span className={styles.blockIcon}>💪</span>
                 <h2 className={styles.blockTitle}>Strengths & Highlights</h2>
+                <span className={styles.blockSave}>{saveBtn(strengthsIdea)}</span>
               </div>
               <p className={styles.blockText}>{school.strengths}</p>
-              <div className={styles.blockActions}>{saveBtn(strengthsIdea)}</div>
             </div>
 
             <div className={styles.analysisBlock} style={{borderLeftColor: '#d4820a'}}>
               <div className={styles.blockHeader}>
-                <span className={styles.blockIcon}>⚠</span>
                 <h2 className={styles.blockTitle}>Areas of Opportunity</h2>
+                <span className={styles.blockSave}>{saveBtn(areasIdea)}</span>
               </div>
               <p className={styles.blockText}>{school.areas}</p>
               <div className={styles.blockActions}>
-                {saveBtn(areasIdea)}
                 <button
                   className={styles.gapBtn}
                   onClick={handleAddGap}
@@ -313,31 +311,18 @@ export default function SchoolDetail() {
               <h2 className={styles.sectionTitle}>Stealable, traced to this page</h2>
               {schoolIdeas.map((idea) => (
                 <div key={idea.ideaKey} className={styles.ideaCard}>
-                  <div className={styles.ideaAngle}>{idea.angle}</div>
+                  <div className={styles.ideaTop}>
+                    <div className={styles.ideaAngle}>{idea.angle}</div>
+                    {saveBtn(idea)}
+                  </div>
                   <blockquote className={styles.ideaEvidence}>“{idea.evidence}”</blockquote>
                   <div className={styles.ideaSource}>{idea.evidenceSource} · captured {idea.captureDate}</div>
                   <p className={styles.ideaSteal}>{idea.stealIt}</p>
-                  <div className={styles.blockActions}>{saveBtn(idea)}</div>
                 </div>
               ))}
               <p className={styles.noteLine}>
                 More ideas from this school and others live on the <Link to="/ideas" className={styles.inlineLink}>Get Ideas</Link> page.
               </p>
-            </div>
-
-            {/* SCREENSHOT PLACEHOLDER */}
-            <div className={styles.screenshotBox}>
-              <div className={styles.screenshotLabel}>
-                Homepage Screenshot · Captured {school.captureDate || '2026-06-03'}
-                {school.screenshotFile ? ` · ${school.screenshotFile}` : ''}
-              </div>
-              <div className={styles.screenshotPlaceholder}>
-                <span className={styles.screenshotInitials}>{initials}</span>
-                <span className={styles.screenshotUrl}>{school.url}</span>
-              </div>
-              <div className={styles.screenshotNote}>
-                The screenshot file from the June capture — the image itself is still a placeholder until real screenshots are added to the site.
-              </div>
             </div>
 
             {/* COMPARE */}
