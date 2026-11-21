@@ -163,9 +163,28 @@ check('page has no hardcoded Scoreboard Top', page.includes("['Scoreboard Positi
 check('page has no hardcoded Mobile Sticky Yes', page.includes("['Mobile Sticky Tickets', 'Yes']"), false)
 check('page has no hardcoded Lazy Loading No', page.includes("['Lazy Loading Issues', 'No']"), false)
 check('page has no hardcoded Scoreboard Yes', page.includes("['Has Live Scoreboard', 'Yes']"), false)
-for (const frag of ['school.heroAssetType', 'school.scoreboardPosition', 'school.genderBalance', 'school.lazyLoading', 'school.mobileSticky', 'school.hasGalleries', 'school.captureDate', 'emphasis.headlineTone', 'emphasisFor', 'pillarSignals', 'ideasFromSchool', 'getLiveNotes', 'compareId', 'In their own words', 'The four pillars', 'Ideas from this school', 'Compare']) {
+for (const frag of ['school.heroAssetType', 'school.scoreboardPosition', 'school.genderBalance', 'school.lazyLoading', 'school.mobileSticky', 'school.hasGalleries', 'school.captureDate', 'emphasis.headlineTone', 'emphasisFor', 'pillarSignals', 'ideasFromSchool', 'getLiveNotes', 'compareIds', 'MAX_COMPARE', 'tierForSlot', 'compareRowsFor', 'compareOptions', 'rowSpan', 'compareLockCell', 'compareUnlockBtn', 'Add another school', 'In their own words', 'The four pillars', 'Ideas from this school', 'Compare']) {
   check(`page wires ${frag}`, page.includes(frag), true)
 }
+// The four differentiating rows must be in the compare block itself, not
+// just in the sidebar data fields (which share the same labels).
+{
+  const block = page.slice(page.indexOf('const compareRowsFor'))
+  const rowsBlock = block.slice(0, block.indexOf('\n  ]'))
+  for (const label of ['Has Tickets CTA', 'Mobile Sticky Tickets', 'Photo Galleries', 'Video Highlights']) {
+    check(`compare rows include ${label}`, rowsBlock.includes(`'${label}'`), true)
+  }
+  check('compare rows count is 11', (rowsBlock.match(/\['/g) || []).length, 11)
+}
+// Tier gates: slot 0 free, slots 1-2 Scout (up to 4 schools), slots 3-6
+// Agency (up to 8). Locked columns show a lock + upgrade prompt, never
+// scrambled or blurred data.
+check('compare tier gate: slot 0 free', page.includes("i === 0 ? null"), true)
+check('compare tier gate: slots 1-2 Scout', page.includes("i <= 2 ? 'Scout' : 'Agency'"), true)
+check('compare lock mentions Scout limit', page.includes('Compare up to 4 schools with Scout'), true)
+check('compare lock mentions Agency limit', page.includes('Compare up to 8 schools with Agency'), true)
+check('compare lock links to pricing', page.includes('to="/pricing" className={styles.compareUnlockBtn}'), true)
+check('compare has no blurred/scrambled lock', /blur|scramble/i.test(page), false)
 // Screenshots are not referenced anywhere on the page (2026-11-14: the
 // screenshot placeholder block was removed; the data field stays in schools.js).
 check('page has no screenshot references', /screenshot/i.test(page), false)

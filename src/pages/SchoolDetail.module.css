@@ -629,6 +629,44 @@
 }
 
 /* COMPARE */
+.comparePickers {
+  margin-bottom: 14px;
+}
+
+.comparePickers .compareSelect {
+  margin-bottom: 0;
+}
+
+.comparePickerRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.comparePickerRow .compareSelect {
+  flex: 1;
+}
+
+.compareRemove {
+  flex: none;
+  width: 42px;
+  font-size: 15px;
+  color: var(--muted);
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.compareRemove:hover {
+  color: var(--ink);
+  border-color: var(--muted);
+}
+
+.compareWrap {
+  overflow-x: auto;
+}
+
 .compareSelect {
   width: 100%;
   font-family: 'Barlow Condensed', sans-serif;
@@ -665,6 +703,69 @@
   color: #444;
   border-bottom: 1px solid var(--border);
   padding: 8px;
+}
+
+.compareTable th:not(:first-child),
+.compareTable td:not(:first-child) {
+  min-width: 150px;
+}
+
+.compareTierTag {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  vertical-align: 1px;
+}
+
+.compareLockCell {
+  text-align: center;
+  vertical-align: middle;
+  background: var(--surface-2);
+}
+
+.compareLockIcon {
+  display: block;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.compareLockTitle {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.compareLockText {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 4px 0 12px;
+}
+
+.compareUnlockBtn {
+  display: inline-block;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--brand);
+  padding: 8px 14px;
+  border-radius: 3px;
+}
+
+.compareUnlockBtn:hover {
+  background: var(--brand-dark);
 }
 
 .compareLabel {

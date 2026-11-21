@@ -13,6 +13,7 @@ const TIERS = [
       'Full school directory (148 schools)',
       'High-level checklist data for all schools',
       '3 deep-dive profile unlocks per month',
+      '2-school comparison',
       'Top nav count overview',
       'CMS provider identification',
       'Surface-level editorial summary',
@@ -20,7 +21,7 @@ const TIERS = [
     ],
     locked: [
       'Full UX editorial analysis',
-      'School comparison tool',
+      '3+ school comparison',
       'Data export (CSV / tab-delimited)',
       'API access',
     ],
@@ -38,7 +39,7 @@ const TIERS = [
     features: [
       '30 deep-dive profile unlocks per month',
       'Full UX editorial analysis (love, strengths, opportunities)',
-      '2–3 school comparison tool',
+      'Up to 4-school comparison',
       'CSV export up to 25 rows per month',
       'Basic filter capabilities (conf, division, CMS)',
       'Hero narrative & scoreboard position data',
@@ -46,7 +47,7 @@ const TIERS = [
     ],
     locked: [
       'Unlimited unlocks',
-      '6+ school matrix comparison',
+      '5–8 school comparison',
       'Unlimited CSV & tab-delimited export',
       'Full API access',
       'Team seats',
@@ -63,7 +64,7 @@ const TIERS = [
     ctaStyle: 'dark',
     features: [
       'Unlimited deep-dive profile unlocks',
-      'Full 6+ school comparison matrix',
+      'Up to 8-school comparison matrix',
       'Filter by Conference, Division, or CMS',
       'Unlimited CSV & tab-delimited export',
       'Full programmatic API access',
@@ -149,7 +150,7 @@ export default function Pricing() {
               ['School directory access', '✓', '✓', '✓'],
               ['Deep-dive profile unlocks', '3 / mo', '30 / mo', 'Unlimited'],
               ['Full UX editorial analysis', '✕', '✓', '✓'],
-              ['School comparison tool', '✕', '2–3 schools', '6+ schools'],
+              ['School comparison tool', '2 schools', 'Up to 4', 'Up to 8'],
               ['Data export', '✕', '25 rows / mo', 'Unlimited'],
               ['API access', '✕', '✕', '✓'],
               ['Quarterly trend trackers', '✕', '✕', '✓'],
