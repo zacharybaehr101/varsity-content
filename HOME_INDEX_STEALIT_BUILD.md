@@ -45,6 +45,32 @@ The homepage "Conferences in the Index" cards still link to
 land on the unfiltered index. Zachary to say whether that section should
 change too (remove it, or repoint the cards).
 
+## Second commit — remove the homepage conference section + footer Conferences column (2026-11-20, evening)
+
+Zachary asked for the "home page fix" (the loose end above), then
+redirected to sweeps; the fix was done after the sweeps were filed.
+
+- `Home.jsx`: `CONF_HIGHLIGHTS` array and the whole CONFERENCE GRID
+  section ("Conferences in the Index", 6 conference cards + "+ More")
+  removed. The homepage now goes hero → stats → About → Featured
+  Audits → pricing teaser.
+- `Home.module.css`: the `/* CONFERENCES */` block removed
+  (`.confGrid`, `.confCard`, `.confCardMore`, `.confName`, `.confCount`,
+  `.confDiv`).
+- `Footer.jsx`: the Conferences column removed (Big Ten / ACC / SEC /
+  Big 12 links, all `/index?conf=...`). The footer keeps Product and
+  Coverage (division) columns; the division links still work because
+  the index still honors the `div` param.
+- Deliberately untouched: the "10 Conferences" stats (homepage stats
+  strip and footer bottom bar) — that is the deferred counts-copy issue
+  (26 fields / 10 conferences), not this fix.
+- Verified: rendered homepage DOM contains 0 "Conferences in the Index"
+  and 0 `/index?conf` links; footer col heads are only Product and
+  Coverage; featured row still 3-across at 1280px; build passes (566 kB
+  JS); tests school-page 188/188, my-ideas 23/23, news 38/38,
+  mobile-nav 30/30, ideas suite exit 0. Remote-vs-local diff for the
+  three files is pure deletions of exactly the conference content above.
+
 ## Verification
 
 - Tests: school-page 188/188, my-ideas 23/23, news 38/38, mobile-nav
