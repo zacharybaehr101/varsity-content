@@ -28,7 +28,9 @@ export default function SchoolDetail() {
   const school = schools.find(s => s.id === parseInt(id))
   const [savedKeys, setSavedKeys] = useState(() => new Set(loadSaved().map(s => s.ideaKey)))
   const [gapAdded, setGapAdded] = useState(false)
-  const [compareId, setCompareId] = useState('')
+  // Multi-school compare: up to 7 added schools (8 columns total).
+  const MAX_COMPARE = 7
+  const [compareIds, setCompareIds] = useState([])
 
   useEffect(() => {
     const refresh = () => setSavedKeys(new Set(loadSaved().map(s => s.ideaKey)))
@@ -36,8 +38,8 @@ export default function SchoolDetail() {
     return () => window.removeEventListener(IDEAS_CHANGED_EVENT, refresh)
   }, [])
 
-  // Reset the compare picker when navigating between schools.
-  useEffect(() => { setCompareId(''); setGapAdded(false) }, [id])
+  // Reset the compare pickers when navigating between schools.
+  useEffect(() => { setCompareIds([]); setGapAdded(false) }, [id])
 
   if (!school) return <Navigate to="/index" />
 
@@ -47,10 +49,30 @@ export default function SchoolDetail() {
   const pillars = pillarSignals(school)
   const live = getLiveNotes(school.id)
   const schoolIdeas = ideasFromSchool(school)
-  const compareSchool = compareId
-    ? schools.find(s => s.id === parseInt(compareId))
-    : null
-  const compareEmphasis = compareSchool ? emphasisFor(compareSchool) : null
+  const compareSchools = compareIds
+    .map(cid => schools.find(s => s.id === parseInt(cid, 10)))
+    .filter(Boolean)
+  // Added slot i is the (i+2)th column. Slot 0 is free; slots 1-2 unlock
+  // with Scout (up to 4 schools); slots 3-6 unlock with Agency (up to 8).
+  const tierForSlot = (i) => (i === 0 ? null : i <= 2 ? 'Scout' : 'Agency')
+  const compareRowsFor = (s, em) => [
+    ['Hero copy', s.heroCopy || '—'],
+    ['Top headline', s.headline || '—'],
+    ['Emphasis', em.theme],
+    ['Ticket weight', s.ticketWeight || '—'],
+    ['Streaming', s.streaming || '—'],
+    ['Nav items', String(s.navCount)],
+    ['CMS', s.cms],
+    ['Has Tickets CTA', s.hasTickets ? 'Yes' : 'No'],
+    ['Mobile Sticky Tickets', s.mobileSticky || '—'],
+    ['Photo Galleries', s.hasGalleries ? 'Yes' : 'No'],
+    ['Video Highlights', s.hasVideo ? 'Yes' : 'No'],
+  ]
+  const compareRows = compareRowsFor(school, emphasis)
+  const compareValues = compareSchools.map(cs => compareRowsFor(cs, emphasisFor(cs)))
+  const compareOptions = (exceptId) => [...schools]
+    .filter(s => s.id !== school.id && (s.id === exceptId || !compareIds.includes(String(s.id))))
+    .sort((a, b) => a.name.localeCompare(b.name))
 
   // One idea per editorial block, derived from the block's own text.
   const blockIdea = (text, source) => ideaFromEvidence(school, text, source)
@@ -106,16 +128,6 @@ export default function SchoolDetail() {
     ['Video Highlights', school.hasVideo ? 'Yes' : 'No'],
     ['Capture Date', school.captureDate || '—'],
   ]
-
-  const compareRows = compareSchool ? [
-    ['Hero copy', school.heroCopy || '—', compareSchool.heroCopy || '—'],
-    ['Top headline', school.headline || '—', compareSchool.headline || '—'],
-    ['Emphasis', emphasis.theme, compareEmphasis.theme],
-    ['Ticket weight', school.ticketWeight || '—', compareSchool.ticketWeight || '—'],
-    ['Streaming', school.streaming || '—', compareSchool.streaming || '—'],
-    ['Nav items', String(school.navCount), String(compareSchool.navCount)],
-    ['CMS', school.cms, compareSchool.cms],
-  ] : []
 
   const prevSchool = schools.find(s => s.id === school.id - 1)
   const nextSchool = schools.find(s => s.id === school.id + 1)
@@ -328,43 +340,93 @@ export default function SchoolDetail() {
             {/* COMPARE */}
             <div className={styles.sectionCard}>
               <div className={styles.sectionKicker}>Compare</div>
-              <h2 className={styles.sectionTitle}>Put this school next to another</h2>
+              <h2 className={styles.sectionTitle}>Put this school next to others</h2>
               <p className={styles.noteLine}>
-                Pick a school. Same fields, side by side — no verdict, no ranking. The differences are the point.
+                Pick up to 7 more schools. Same fields, side by side — no verdict, no ranking. The differences are the point. 2 schools free · up to 4 with Scout · up to 8 with Agency.
               </p>
-              <select
-                className={styles.compareSelect}
-                value={compareId}
-                onChange={(e) => setCompareId(e.target.value)}
-                aria-label="Compare with another school"
-              >
-                <option value="">Choose a school to compare…</option>
-                {[...schools]
-                  .filter(s => s.id !== school.id)
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map(s => (
-                    <option key={s.id} value={s.id}>{s.name} · {s.conf}</option>
-                  ))}
-              </select>
-              {compareSchool ? (
-                <table className={styles.compareTable}>
-                  <thead>
-                    <tr>
-                      <th></th>
-                      <th>{school.name}</th>
-                      <th>{compareSchool.name}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {compareRows.map(([label, a, b]) => (
-                      <tr key={label}>
-                        <td className={styles.compareLabel}>{label}</td>
-                        <td>{a}</td>
-                        <td>{b}</td>
-                      </tr>
+              <div className={styles.comparePickers}>
+                {compareSchools.map((cs, i) => (
+                  <div key={cs.id} className={styles.comparePickerRow}>
+                    <select
+                      className={styles.compareSelect}
+                      value={String(cs.id)}
+                      onChange={(e) => setCompareIds(ids => ids.map((id, j) => (j === i ? e.target.value : id)))}
+                      aria-label={`Compare school ${i + 2}`}
+                    >
+                      {compareOptions(cs.id).map(s => (
+                        <option key={s.id} value={s.id}>{s.name} · {s.conf}</option>
+                      ))}
+                    </select>
+                    <button
+                      type="button"
+                      className={styles.compareRemove}
+                      onClick={() => setCompareIds(ids => ids.filter((_, j) => j !== i))}
+                      aria-label={`Remove ${cs.name} from comparison`}
+                    >✕</button>
+                  </div>
+                ))}
+                {compareIds.length < MAX_COMPARE ? (
+                  <select
+                    className={styles.compareSelect}
+                    value=""
+                    onChange={(e) => { if (e.target.value) setCompareIds(ids => [...ids, e.target.value]) }}
+                    aria-label="Add another school to compare"
+                  >
+                    <option value="">{compareIds.length === 0 ? 'Choose a school to compare…' : 'Add another school…'}</option>
+                    {compareOptions(null).map(s => (
+                      <option key={s.id} value={s.id}>{s.name} · {s.conf}</option>
                     ))}
-                  </tbody>
-                </table>
+                  </select>
+                ) : null}
+              </div>
+              {compareSchools.length ? (
+                <div className={styles.compareWrap}>
+                  <table className={styles.compareTable}>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>{school.name}</th>
+                        {compareSchools.map((cs, i) => (
+                          <th key={cs.id}>
+                            {cs.name}
+                            {tierForSlot(i) ? <span className={styles.compareTierTag}>{tierForSlot(i)}</span> : null}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {compareRows.map(([label, value], r) => (
+                        <tr key={label}>
+                          <td className={styles.compareLabel}>{label}</td>
+                          <td>{value}</td>
+                          {compareSchools.map((cs, i) => {
+                            const tier = tierForSlot(i)
+                            if (tier) {
+                              if (r !== 0) return null
+                              return (
+                                <td key={cs.id} rowSpan={compareRows.length} className={styles.compareLockCell}>
+                                  <span className={styles.compareLockIcon} aria-hidden="true">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                                  </span>
+                                  <div className={styles.compareLockTitle}>Locked</div>
+                                  <div className={styles.compareLockText}>
+                                    {tier === 'Scout'
+                                      ? 'Compare up to 4 schools with Scout'
+                                      : 'Compare up to 8 schools with Agency'}
+                                  </div>
+                                  <Link to="/pricing" className={styles.compareUnlockBtn}>
+                                    Unlock {tier} — {tier === 'Scout' ? '$39/mo' : '$129/mo'}
+                                  </Link>
+                                </td>
+                              )
+                            }
+                            return <td key={cs.id}>{compareValues[i][r][1]}</td>
+                          })}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               ) : null}
             </div>
 
