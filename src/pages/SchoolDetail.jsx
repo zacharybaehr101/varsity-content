@@ -45,6 +45,9 @@ export default function SchoolDetail() {
 
   const div = DIV_COLORS[school.div] || DIV_COLORS['Division I']
   const initials = getInitials(school.name)
+  // Capture-only schools (ASUN proof): no editorial audit yet — the page
+  // shows the live capture and says so, instead of rendering empty blocks.
+  const pendingText = `Full audit coming — this page shows the live capture from ${school.captureDate}.`
   const emphasis = emphasisFor(school)
   const pillars = pillarSignals(school)
   const live = getLiveNotes(school.id)
@@ -61,7 +64,7 @@ export default function SchoolDetail() {
     ['Emphasis', em.theme],
     ['Ticket weight', s.ticketWeight || '—'],
     ['Streaming', s.streaming || '—'],
-    ['Nav items', String(s.navCount)],
+    ['Nav items', String(s.navCount ?? '—')],
     ['CMS', s.cms],
     ['Has Tickets CTA', s.hasTickets ? 'Yes' : 'No'],
     ['Mobile Sticky Tickets', s.mobileSticky || '—'],
@@ -112,10 +115,10 @@ export default function SchoolDetail() {
     ['Division', school.div],
     ['CMS Provider', school.cms],
     ['Primary URL', school.url],
-    ['Nav Item Count', school.navCount],
+    ['Nav Item Count', school.navCount ?? '—'],
     ['Hero Asset', school.heroAssetType || '—'],
     ['Hero Narrative', school.hero],
-    ['Has Live Scoreboard', school.hasScoreboard ? 'Yes' : 'No'],
+    ['Has Live Scoreboard', school.hasScoreboard == null ? '—' : (school.hasScoreboard ? 'Yes' : 'No')],
     ['Scoreboard Position', school.scoreboardPosition || '—'],
     ['Streaming Platform', school.streaming],
     ['Has NIL Link', school.hasNIL ? 'Yes' : 'No'],
@@ -169,7 +172,9 @@ export default function SchoolDetail() {
               {school.url} ↗
             </a>
             <div className={styles.captureLine}>
-              Homepage captured {school.captureDate || '2026-06-03'} · audit of the live site as it stood that day
+              {school.captureOnly
+                ? `Live capture ${school.captureDate} · homepage only — full audit coming`
+                : `Homepage captured ${school.captureDate || '2026-06-03'} · audit of the live site as it stood that day`}
             </div>
           </div>
           <div className={styles.headerActions}>
@@ -213,25 +218,26 @@ export default function SchoolDetail() {
             <div className={styles.analysisBlock}>
               <div className={styles.blockHeader}>
                 <h2 className={styles.blockTitle}>What We Love</h2>
-                <span className={styles.blockSave}>{saveBtn(loveIdea)}</span>
+                {school.captureOnly ? null : <span className={styles.blockSave}>{saveBtn(loveIdea)}</span>}
               </div>
-              <p className={styles.blockText}>{school.love}</p>
+              <p className={styles.blockText}>{school.captureOnly ? pendingText : school.love}</p>
             </div>
 
             <div className={styles.analysisBlock}>
               <div className={styles.blockHeader}>
                 <h2 className={styles.blockTitle}>Strengths & Highlights</h2>
-                <span className={styles.blockSave}>{saveBtn(strengthsIdea)}</span>
+                {school.captureOnly ? null : <span className={styles.blockSave}>{saveBtn(strengthsIdea)}</span>}
               </div>
-              <p className={styles.blockText}>{school.strengths}</p>
+              <p className={styles.blockText}>{school.captureOnly ? pendingText : school.strengths}</p>
             </div>
 
             <div className={styles.analysisBlock} style={{borderLeftColor: '#d4820a'}}>
               <div className={styles.blockHeader}>
                 <h2 className={styles.blockTitle}>Areas of Opportunity</h2>
-                <span className={styles.blockSave}>{saveBtn(areasIdea)}</span>
+                {school.captureOnly ? null : <span className={styles.blockSave}>{saveBtn(areasIdea)}</span>}
               </div>
-              <p className={styles.blockText}>{school.areas}</p>
+              <p className={styles.blockText}>{school.captureOnly ? pendingText : school.areas}</p>
+              {school.captureOnly ? null : (
               <div className={styles.blockActions}>
                 <button
                   className={styles.gapBtn}
@@ -241,6 +247,7 @@ export default function SchoolDetail() {
                   {gapAdded ? '✓ Added to checklist' : '＋ Add this gap to my checklist'}
                 </button>
               </div>
+              )}
             </div>
 
             {/* MEDIA & SOCIAL */}
@@ -262,7 +269,7 @@ export default function SchoolDetail() {
                 </div>
                 <div className={styles.factItem}>
                   <span className={styles.factLabel}>Hero asset</span>
-                  <span className={styles.factValue}>{school.heroAssetType}</span>
+                  <span className={styles.factValue}>{school.heroAssetType || '—'}</span>
                 </div>
               </div>
               {live ? (

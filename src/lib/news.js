@@ -286,7 +286,8 @@ export function normalizeSport(category = '') {
 
 // --- Feed model ------------------------------------------------------------
 // One item per school maximum (the best candidate per school), so the feed
-// is at most 148 items — a clean "one idea per school" list. Candidates
+// is at most as many items as there are schools in the list — a clean
+// "one idea per school" list. Candidates
 // are the top headline and the hero copy; the more feature-like one wins
 // (feature > announcement > preview > game > unclear), headline on ties.
 // Generic hero brand lines ("Welcome to Aggieland", "Go Gators: Official
@@ -320,7 +321,7 @@ export function buildNewsFeed(list = schools) {
       reason: best.reason,
       sport: normalizeSport(school.headlineCategory),
       evidenceSource: best.source,
-      captureDate: CAPTURE_DATE,
+      captureDate: school.captureDate || CAPTURE_DATE,
     })
   }
   // A–Z by school. There are no story dates in the June captures, so

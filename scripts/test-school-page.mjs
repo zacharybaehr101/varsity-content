@@ -3,7 +3,7 @@
 // Checks the data the rebuilt SchoolDetail depends on, and that the page
 // no longer hardcodes audit values:
 //
-// Data (all 148 schools):
+// Data (all 156 schools: 148 audited + 8 capture-only ASUN):
 //   - the 9 restored fields are populated (heroAssetType, hasScoreboard,
 //     scoreboardPosition, genderBalance, lazyLoading, hasGalleries,
 //     captureDate, screenshotFile, headlineTone)
@@ -12,7 +12,8 @@
 //     from the 148-school content analysis) — Sheet-wide 20 No / 128 Yes,
 //     and all 20 are on the site now that the 7 missing schools are in
 //   - genderBalance has its 3 real variants, not a single hardcoded value
-//   - captureDate is 2026-06-03 for all 148
+//   - captureDate is 2026-06-03 for all 148 audited schools
+//     (the 8 capture-only ASUN schools carry 2026-11-20)
 // Lib (src/lib/schoolPage.js):
 //   - themeFor covers the proven cases: Notre Dame ticket push, Purdue
 //     honors, Cincinnati coach, Duke schedule, Dickinson record chase,
@@ -22,10 +23,11 @@
 //   - ideasFromSchool returns 1–2 ideas per school, each with an angle,
 //     verbatim evidence, and a steal-it line
 // Live notes (src/data/liveNotes.js):
-//   - exactly 10 schools: the 3 fully audited live (Ohio State 13,
+//   - exactly 18 schools: the 3 fully audited live (Ohio State 13,
 //     Fort Hays 65, Mount Marty 112) plus the 7 homepage-only audits
-//     from the missing-7 run (142–148), each with media
-//     (audio/video/photos/social) and all four pillars
+//     from the missing-7 run (142–148), plus the 8 homepage-only
+//     captures from the ASUN proof run (149–156, audited 2026-11-20),
+//     each with media (audio/video/photos/social) and all four pillars
 // Page (src/pages/SchoolDetail.jsx):
 //   - contains no hardcoded audit values: no 'Image' / 'Balanced' /
 //     'Top' literals in the fields list — every field reads school.*
@@ -55,16 +57,36 @@ function byName(name) {
   return school
 }
 
-// --- data: all 148 populated ----------------------------------------------
-check('schools count', schools.length, 148)
+// --- data: all 156 populated (148 audited + 8 capture-only) ----------------
+check('schools count', schools.length, 156)
+// Sheet-only fields: the 8 capture-only ASUN schools were never in the
+// Sheet, so these are asserted over the 148 audited schools only.
+// Capture-only schools omit them (undefined), and the page renders '—'.
+const audited = schools.filter((s) => !s.captureOnly)
 const newFields = ['heroAssetType', 'scoreboardPosition', 'genderBalance', 'lazyLoading', 'captureDate', 'screenshotFile', 'headlineTone']
 for (const f of newFields) {
-  const missing = schools.filter((s) => !(s[f] || '').trim()).length
-  check(`field ${f} populated for all 148 (missing)`, missing, 0)
+  const missing = audited.filter((s) => !(s[f] || '').trim()).length
+  check(`field ${f} populated for all audited (missing)`, missing, 0)
 }
-check('hasScoreboard present for all 148', schools.filter((s) => typeof s.hasScoreboard !== 'boolean').length, 0)
-check('hasGalleries present for all 148', schools.filter((s) => typeof s.hasGalleries !== 'boolean').length, 0)
-check('captureDate is 2026-06-03 for all 148', schools.filter((s) => s.captureDate !== '2026-06-03').length, 0)
+check('hasScoreboard present for all audited', audited.filter((s) => typeof s.hasScoreboard !== 'boolean').length, 0)
+check('hasGalleries present for all 156', schools.filter((s) => typeof s.hasGalleries !== 'boolean').length, 0)
+check('captureDate is 2026-06-03 for all audited', audited.filter((s) => s.captureDate !== '2026-06-03').length, 0)
+check('captureDate is 2026-11-20 for all 8 capture-only', schools.filter((s) => s.captureOnly && s.captureDate !== '2026-11-20').length, 0)
+
+// --- capture-only ASUN proof (ids 149–156) -----------------------------------
+// Records built from the Nov 20 live sweep only: no Sheet row, no editorial
+// audit yet. The page must say so (pending text) instead of rendering
+// empty blocks, and must never claim a field the capture didn't record.
+const captureOnly = schools.filter((s) => s.captureOnly)
+check('capture-only count', captureOnly.length, 8)
+check('capture-only are all ASUN', captureOnly.filter((s) => s.conf !== 'ASUN').length, 0)
+check('capture-only are all Division I', captureOnly.filter((s) => s.div !== 'Division I').length, 0)
+check('capture-only are all Sidearm', captureOnly.filter((s) => s.cms !== 'Sidearm Sports').length, 0)
+check('capture-only editorial is empty (pending, not invented)',
+  captureOnly.filter((s) => (s.love || s.strengths || s.areas || s.loveFull || s.strengthsFull || s.areasFull).trim()).length, 0)
+check('capture-only heroCopy + headline present',
+  captureOnly.filter((s) => !(s.heroCopy || '').trim() || !(s.headline || '').trim()).length, 0)
+check('capture-only ids are 149–156', JSON.stringify(captureOnly.map((s) => s.id)), JSON.stringify([149, 150, 151, 152, 153, 154, 155, 156]))
 
 // Mobile sticky is a conference template: MIAA + Sun are all "No", rest "Yes".
 // Sheet-wide that is 20 No / 128 Yes — and all 20 No schools are on the
@@ -76,12 +98,12 @@ check('mobileSticky No are all MIAA or Sun',
 check('mobileSticky Yes count', schools.filter((s) => s.mobileSticky === 'Yes').length, 128)
 
 // Gender balance is real Sheet data with 3 variants, not one hardcoded value.
-const genders = [...new Set(schools.map((s) => s.genderBalance))].sort()
+const genders = [...new Set(audited.map((s) => s.genderBalance))].sort()
 check('genderBalance variants', JSON.stringify(genders),
   JSON.stringify(['Balanced', 'Balanced Representation', 'Equitable Split']))
 check('heroAssetType "Image" count (Sheet: 112)', schools.filter((s) => s.heroAssetType === 'Image').length, 112)
 check('scoreboardPosition "Top" count (Sheet: 102)', schools.filter((s) => s.scoreboardPosition === 'Top').length, 102)
-check('lazyLoading all "No" (Sheet truth, not a default)', schools.filter((s) => s.lazyLoading !== 'No').length, 0)
+check('lazyLoading all "No" (Sheet truth, not a default)', audited.filter((s) => s.lazyLoading !== 'No').length, 0)
 
 // --- themeFor: proven cases -------------------------------------------------
 check('Notre Dame (Single Game Tickets) → Ticket push', themeFor('Single Game Tickets'), 'Ticket push')
@@ -98,9 +120,9 @@ check('Fort Hays (Athlete Spotlight) → Identity / brand', themeFor('Athlete Sp
 // Every school's narrative maps to a known theme (no undefined).
 const themes = new Set(schools.map((s) => themeFor(s.hero)))
 const known = new Set(['Ticket push', 'Honors / academics', 'Celebration / title', 'Coach / staff', 'Schedule release', 'Game action', 'Event / ceremony', 'Recruiting / roster', 'Identity / brand', 'School news'])
-check('all 148 themes are known', [...themes].filter((t) => !known.has(t)).length, 0)
+check('all themes are known', [...themes].filter((t) => !known.has(t)).length, 0)
 
-// --- emphasisFor / pillarSignals / ideasFromSchool for all 148 -------------
+// --- emphasisFor / pillarSignals / ideasFromSchool for all 156 -------------
 let emphasisBad = 0
 let pillarBad = 0
 let ideasBad = 0
@@ -121,9 +143,9 @@ for (const s of schools) {
     if (idea.stealIt === 'Copy the layout, not the copy — adapt what they did to your school.') ideasBad++
   }
 }
-check('emphasisFor valid for all 148 (bad)', emphasisBad, 0)
-check('pillarSignals valid for all 148 (bad)', pillarBad, 0)
-check('ideasFromSchool 1–2 valid ideas for all 148 (bad)', ideasBad, 0)
+check('emphasisFor valid for all 156 (bad)', emphasisBad, 0)
+check('pillarSignals valid for all 156 (bad)', pillarBad, 0)
+check('ideasFromSchool 1–2 valid ideas for all 156 (bad)', ideasBad, 0)
 
 // Spot checks on the derived ideas.
 const nd = ideasFromSchool(byName('Notre Dame Fighting Irish'))
@@ -135,14 +157,22 @@ check('Dickinson idea angle is Record chase', dick.some((i) => i.angle === 'Reco
 const bama = emphasisFor(byName('Alabama Crimson Tide'))
 check('Alabama emphasis theme is Celebration / title', bama.theme, 'Celebration / title')
 check('Alabama live notes steal mentions the hero ticket sale', /hero/i.test(getLiveNotes(148).steal), true)
+const fgcu = emphasisFor(byName('Florida Gulf Coast Eagles'))
+check('FGCU emphasis theme is Celebration / title', fgcu.theme, 'Celebration / title')
+const ju = emphasisFor(byName('Jacksonville Dolphins'))
+check('Jacksonville emphasis theme is Identity / brand', ju.theme, 'Identity / brand')
+const unf = emphasisFor(byName('North Florida Ospreys'))
+check('North Florida emphasis theme is Ticket push', unf.theme, 'Ticket push')
+const fgcuIdeas = ideasFromSchool(byName('Florida Gulf Coast Eagles'))
+check('FGCU ideas carry the Nov 20 capture date', fgcuIdeas.every((i) => i.captureDate === '2026-11-20'), true)
 
 // --- live notes --------------------------------------------------------------
-check('liveNotes covers exactly 10 schools', Object.keys(liveNotes).length, 10)
-for (const id of [13, 65, 112, 142, 143, 144, 145, 146, 147, 148]) {
+check('liveNotes covers exactly 18 schools', Object.keys(liveNotes).length, 18)
+for (const id of [13, 65, 112, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156]) {
   const n = getLiveNotes(id)
   check(`liveNotes[${id}] exists`, !!n, true)
   check(`liveNotes[${id}] school id matches`, n && n.schoolId, id)
-  check(`liveNotes[${id}] audited date`, n && n.audited, '2026-11-14')
+  check(`liveNotes[${id}] audited date`, n && n.audited, id >= 149 ? '2026-11-20' : '2026-11-14')
   for (const k of ['audio', 'video', 'photos', 'social']) {
     check(`liveNotes[${id}] media.${k} present`, !!(n && n.media[k]), true)
   }

@@ -16,9 +16,15 @@
 // Proof track examples: Dickinson (record chase), Cincinnati (coach
 // extension), Mount Marty (All-American), WVU Tech (freshman) → feature.
 //
-// Counts below are the verified counts over the 148-school capture
-// (141 + the 7 missing schools added 2026-11-14).
+// Counts below are the verified counts over the 156-school capture
+// (148 audited + the 8 capture-only ASUN schools added 2026-11-20).
 // If the data changes, these fail loudly on purpose.
+//
+// The 8 ASUN schools classify as: feature 1 (FGCU — its "By The Numbers"
+// strip beats the championship-run headline), announcement 2 (Stetson
+// schedule announcement; West Florida season-ticket on-sale),
+// game 2 (Jacksonville result; Lipscomb "WINS THREE AWARDS" — the wins
+// verb reads as a result), unclear 3 (Bellarmine, Queens, North Florida).
 //
 // The 7 new schools classify as: feature 2 (Rogers State academic
 // honours, Washburn conference title), preview 1 (Central Oklahoma —
@@ -108,16 +114,16 @@ check("normalizeSport('Baseball')", normalizeSport('Baseball'), 'Baseball')
 // --- Feed shape + counts ------------------------------------------------------
 const feed = buildNewsFeed()
 const counts = newsCounts()
-check('feed has one item per school', feed.length, 148)
-check('feed schoolIds are unique', new Set(feed.map((i) => i.schoolId)).size, 148)
-check('total schools', counts.total, 148)
-check('feature items', counts.feature, 85)
-check('announcement items', counts.announcement, 22)
+check('feed has one item per school', feed.length, 156)
+check('feed schoolIds are unique', new Set(feed.map((i) => i.schoolId)).size, 156)
+check('total schools', counts.total, 156)
+check('feature items', counts.feature, 86)
+check('announcement items', counts.announcement, 24)
 check('preview items', counts.preview, 11)
-check('game items', counts.game, 25)
-check('unclear items', counts.unclear, 5)
+check('game items', counts.game, 27)
+check('unclear items', counts.unclear, 8)
 const unclear = feed.filter((i) => i.kind === 'unclear').map((i) => i.schoolName).sort()
-check('unclear items are Alabama + Central Missouri + Newman + Texas Tech + Whitman', JSON.stringify(unclear), JSON.stringify(['Alabama Crimson Tide', 'Central Missouri Mules', 'Newman Jets', 'Texas Tech Red Raiders', 'Whitman Blues']))
+check('unclear items are Alabama + Bellarmine + Central Missouri + Newman + North Florida + Queens + Texas Tech + Whitman', JSON.stringify(unclear), JSON.stringify(['Alabama Crimson Tide', 'Bellarmine Knights', 'Central Missouri Mules', 'Newman Jets', 'North Florida Ospreys', 'Queens Royals', 'Texas Tech Red Raiders', 'Whitman Blues']))
 check('feed is A–Z by school', JSON.stringify(feed.map((i) => i.schoolName)) === JSON.stringify([...feed.map((i) => i.schoolName)].sort((a, b) => a.localeCompare(b))), true)
 
 // --- Categories hidden from the page (2026-11-20) ---------------------------

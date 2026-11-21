@@ -6,8 +6,12 @@ import styles from './Home.module.css'
 
 const FEATURED = schools.slice(0, 3)
 
+// Fully audited schools only — capture-only records (ASUN proof) are listed
+// in the index but are not audits yet, so they don't count here.
+const AUDITED_COUNT = schools.filter((s) => !s.captureOnly).length
+
 const STATS = [
-  { num: '148', label: 'Schools Audited' },
+  { num: String(AUDITED_COUNT), label: 'Schools Audited' },
   { num: '10', label: 'Conferences' },
   { num: '26', label: 'Data Fields' },
   { num: '2026', label: 'Index Year' },
@@ -38,7 +42,7 @@ export default function Home() {
             Varsity<br /><span>Content</span>
           </h1>
           <p className={styles.heroSub}>
-            Independent UX audits of 148 collegiate athletics websites.<br />
+            Independent UX audits of {AUDITED_COUNT} collegiate athletics websites.<br />
             From Power 4 to NAIA — every school, honestly graded.
           </p>
           <form className={styles.ideaBox} onSubmit={goIdeas}>
@@ -106,7 +110,7 @@ export default function Home() {
           <div className={styles.sectionHead}>
             <div className={styles.eyebrow}>Featured Audits</div>
             <h2 className={styles.h2}>From the Index</h2>
-            <Link to="/index" className={styles.sectionLink}>See all 148 schools →</Link>
+            <Link to="/index" className={styles.sectionLink}>See all {schools.length} schools →</Link>
           </div>
           <div className={styles.cardList}>
             {FEATURED.map(school => (

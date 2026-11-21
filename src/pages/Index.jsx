@@ -7,6 +7,10 @@ import styles from './Index.module.css'
 const FREE_UNLOCKS = 3
 const PAGE_SIZE = 10
 
+// Fully audited schools only — capture-only records (ASUN proof) are listed
+// in the index but are not audits yet, so they don't count here.
+const auditedCount = schools.filter((s) => !s.captureOnly).length
+
 const divisions = ['Division I', 'Division II', 'Division III', 'NAIA']
 const cmsProviders = [...new Set(schools.map(s => s.cms))].sort()
 
@@ -53,7 +57,7 @@ export default function Index() {
           <div className={styles.eyebrow}>2026 Edition</div>
           <h1 className={styles.title}>The Varsity Content Index</h1>
           <p className={styles.sub}>
-            Independent UX audits of {schools.length} collegiate athletics websites.
+            Independent UX audits of {auditedCount} collegiate athletics websites — {schools.length} schools listed.
             Free users see 3 full profiles/month — unlock all with Scout or Agency.
           </p>
         </div>

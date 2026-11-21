@@ -85,15 +85,17 @@ export function pillarSignals(school) {
         { label: 'CTA visual weight', value: school.ticketWeight || '—' },
         { label: 'Mobile sticky tickets', value: school.mobileSticky || '—' },
       ],
-      note: (school.ticketWeight && school.ticketWeight !== 'High Contrast')
-        ? `The ticket button is bespoke — "${school.ticketWeight}" — not the standard high-contrast button.`
-        : 'The ticket button is the standard high-contrast treatment.',
+      note: !school.ticketWeight
+        ? 'Ticket-button weight was not recorded in the live capture — see the live pillar note below.'
+        : (school.ticketWeight !== 'High Contrast')
+          ? `The ticket button is bespoke — "${school.ticketWeight}" — not the standard high-contrast button.`
+          : 'The ticket button is the standard high-contrast treatment.',
     },
     sportHub: {
       title: 'Sport page / schedule hub',
       facts: [
         { label: 'Streaming platform', value: school.streaming || '—' },
-        { label: 'Live scoreboard', value: school.hasScoreboard ? 'Yes' : 'No' },
+        { label: 'Live scoreboard', value: school.hasScoreboard == null ? '—' : (school.hasScoreboard ? 'Yes' : 'No') },
         { label: 'Scoreboard position', value: school.scoreboardPosition || '—' },
         { label: 'Video highlights', value: school.hasVideo ? 'Yes' : 'No' },
       ],
@@ -104,19 +106,21 @@ export function pillarSignals(school) {
     roster: {
       title: 'Roster / player profiles',
       facts: [
-        { label: 'Recruiting landing page', value: school.hasRecruiting ? 'Yes' : 'No' },
+        { label: 'Recruiting landing page', value: school.hasRecruiting == null ? '—' : (school.hasRecruiting ? 'Yes' : 'No') },
         { label: 'Photo galleries', value: school.hasGalleries ? 'Yes' : 'No' },
         { label: 'Gender representation', value: school.genderBalance || '—' },
       ],
       note: school.hasGalleries
         ? 'Photo galleries are present — the roster has somewhere visual to point.'
-        : 'No photo galleries on the homepage — player pages carry the visuals alone.',
+        : school.captureOnly
+          ? 'No photo galleries on the homepage.'
+          : 'No photo galleries on the homepage — player pages carry the visuals alone.',
     },
     giving: {
       title: 'Support / Giving / NIL',
       facts: [
         { label: 'Donation / NIL link', value: school.hasNIL ? 'Yes' : 'No' },
-        { label: 'Merchandise shop', value: school.hasMerch ? 'Yes' : 'No' },
+        { label: 'Merchandise shop', value: school.hasMerch == null ? '—' : (school.hasMerch ? 'Yes' : 'No') },
       ],
       note: school.hasNIL
         ? 'A donation/NIL link is present on the homepage.'
