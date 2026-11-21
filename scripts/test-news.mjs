@@ -16,9 +16,16 @@
 // Proof track examples: Dickinson (record chase), Cincinnati (coach
 // extension), Mount Marty (All-American), WVU Tech (freshman) → feature.
 //
-// Counts below are the verified counts over the 156-school capture
-// (148 audited + the 8 capture-only ASUN schools added 2026-11-20).
+// Counts below are the verified counts over the 434-school capture
+// (148 audited + the 286 capture-only schools: the 8 ASUN proof schools
+// plus the 278-school rollout of Nov 20–21, 2026).
 // If the data changes, these fail loudly on purpose.
+//
+// The 278 rollout schools classify as: feature 20, announcement 33,
+// preview 24, game 74, unclear 135. The unclear bucket is large because
+// most capture-only headlines are game recaps phrased in ways no rule
+// covers ("FALLS TO", "TOPS", berth announcements, ticket promos) —
+// pre-existing classifier behaviour, not retuned in the rollout.
 //
 // The 8 ASUN schools classify as: feature 1 (FGCU — its "By The Numbers"
 // strip beats the championship-run headline), announcement 2 (Stetson
@@ -114,16 +121,16 @@ check("normalizeSport('Baseball')", normalizeSport('Baseball'), 'Baseball')
 // --- Feed shape + counts ------------------------------------------------------
 const feed = buildNewsFeed()
 const counts = newsCounts()
-check('feed has one item per school', feed.length, 156)
-check('feed schoolIds are unique', new Set(feed.map((i) => i.schoolId)).size, 156)
-check('total schools', counts.total, 156)
-check('feature items', counts.feature, 86)
-check('announcement items', counts.announcement, 24)
-check('preview items', counts.preview, 11)
-check('game items', counts.game, 27)
-check('unclear items', counts.unclear, 8)
+check('feed has one item per school', feed.length, 434)
+check('feed schoolIds are unique', new Set(feed.map((i) => i.schoolId)).size, 434)
+check('total schools', counts.total, 434)
+check('feature items', counts.feature, 105)
+check('announcement items', counts.announcement, 55)
+check('preview items', counts.preview, 35)
+check('game items', counts.game, 99)
+check('unclear items', counts.unclear, 140)
 const unclear = feed.filter((i) => i.kind === 'unclear').map((i) => i.schoolName).sort()
-check('unclear items are Alabama + Bellarmine + Central Missouri + Newman + North Florida + Queens + Texas Tech + Whitman', JSON.stringify(unclear), JSON.stringify(['Alabama Crimson Tide', 'Bellarmine Knights', 'Central Missouri Mules', 'Newman Jets', 'North Florida Ospreys', 'Queens Royals', 'Texas Tech Red Raiders', 'Whitman Blues']))
+check('unclear items are the 140 the classifier has no rule for', JSON.stringify(unclear), JSON.stringify(["Abilene Christian Wildcats","Air Force Falcons","Alabama A&M Bulldogs","Alabama Crimson Tide","Albany Great Danes","Alcorn State Braves","American Eagles","Arkansas State Red Wolves","Army Black Knights","Bellarmine Knights","Binghamton Bearcats","Bowling Green Falcons","Bradley Braves","Brown Bears","Bucknell Bison","CSU Bakersfield Roadrunners","CSUN Matadors","Cal Poly Mustangs","California Baptist Lancers","Canisius Golden Griffins","Central Arkansas Bears","Central Missouri Mules","Charleston Southern Buccaneers","Charlotte 49ers","Chattanooga Mocs","College of Charleston Cougars","Colorado State Rams","Detroit Mercy Titans","East Carolina Pirates","East Tennessee State Buccaneers","East Texas A&M Lions","Eastern Illinois Panthers","Evansville Purple Aces","Fairfield Stags","Florida A&M Rattlers","Florida Atlantic Owls","Fresno State Bulldogs","Furman Paladins","Gardner-Webb Runnin' Bulldogs","Grand Canyon Lopes","Green Bay Phoenix","Hawaii Rainbow Warriors","High Point Panthers","Houston Christian Huskies","Howard Bison","Idaho State Bengals","Incarnate Word Cardinals","Kansas City Roos","La Salle Explorers","Lafayette Leopards","Le Moyne Dolphins","Liberty Flames","Lindenwood Lions","Louisiana Tech Bulldogs","Loyola Chicago Ramblers","Loyola Maryland Greyhounds","Loyola Marymount Lions","Marist Red Foxes","Maryland Eastern Shore Hawks","McNeese Cowboys","Memphis Tigers","Mercer Bears","Mercyhurst Lakers","Miami RedHawks","Milwaukee Panthers","Missouri State Bears","Montana Grizzlies","NJIT Highlanders","Navy Midshipmen","Nevada Wolf Pack","New Haven Chargers","New Mexico Lobos","Newman Jets","North Alabama Lions","North Florida Ospreys","Northeastern Huskies","Northern Arizona Lumberjacks","Northern Colorado Bears","Northern Illinois Huskies","Northern Kentucky Norse","Northwestern State Demons","Oakland Golden Grizzlies","Ohio Bobcats","Oral Roberts Golden Eagles","Pacific Tigers","Portland State Vikings","Presbyterian Blue Hose","Queens Royals","Quinnipiac Bobcats","Radford Highlanders","Rhode Island Rams","Robert Morris Colonials","SIUE Cougars","Sacred Heart Pioneers","Saint Mary's Gaels","Saint Peter's Peacocks","Sam Houston Bearkats","San Francisco Dons","San Jose State Spartans","Seattle Redhawks","South Carolina State Bulldogs","Southern Illinois Salukis","Southern Indiana Screaming Eagles","Southern Jaguars","Southern Utah Thunderbirds","St. Thomas Tommies","Stephen F. Austin Lumberjacks","Stony Brook Seawolves","Tarleton State Texans","Temple Owls","Tennessee State Tigers","Tennessee Tech Golden Eagles","Texas A&M–Corpus Christi Islanders","Texas Southern Tigers","Texas Tech Red Raiders","The Citadel Bulldogs","Towson Tigers","Troy Trojans","Tulane Green Wave","UAB Blazers","UC Davis Aggies","UC San Diego Tritons","UIC Flames","UMass Lowell River Hawks","UNC Asheville Bulldogs","UNC Greensboro Spartans","UNLV Rebels","UT Arlington Mavericks","UT Martin Skyhawks","Utah Tech Trailblazers","VMI Keydets","Valparaiso Beacons","Vermont Catamounts","Wagner Seahawks","Western Illinois Leathernecks","Western Michigan Broncos","Whitman Blues","William & Mary Tribe","Wright State Raiders","Youngstown State Penguins"]))
 check('feed is A–Z by school', JSON.stringify(feed.map((i) => i.schoolName)) === JSON.stringify([...feed.map((i) => i.schoolName)].sort((a, b) => a.localeCompare(b))), true)
 
 // --- Categories hidden from the page (2026-11-20) ---------------------------

@@ -53,6 +53,11 @@ export function themeFor(narrative) {
   if (hasAny(n, ['celebrat', 'champion', 'title', 'win', 'national finish', 'postseason victor', 'record'])) return 'Celebration / title'
   if (hasAny(n, ['recruit', 'sign', 'commit', 'transfer', 'roster'])) return 'Recruiting / roster'
   if (hasAny(n, ['event', 'ceremony', 'hall of fame', 'golf outing', 'movie'])) return 'Event / ceremony'
+  // Gameday hubs are checked before the generic game check: "Gameday"
+  // contains "game", so without this a gameday-hub hero would land
+  // Game action instead of Identity / brand (the theme line for
+  // Identity / brand explicitly covers "a slogan or a gameday hub").
+  if (hasAny(n, ['gameday', 'hub'])) return 'Identity / brand'
   if (hasAny(n, ['action', 'game', 'match', 'recap', 'tournament', 'super regional'])) return 'Game action'
   if (hasAny(n, ['brand', 'tradition', 'culture', 'hub', 'gameday', 'community', 'faith', 'heritage', 'identity', 'message', 'letter', 'ventures', 'network', 'podcast', 'program', 'spotlight', 'focus', 'pride', 'excellence', 'spirit', 'welcome', 'official', 'nation', 'country', 'dominance'])) return 'Identity / brand'
   return 'School news'

@@ -3,14 +3,18 @@
 // Checks the data the rebuilt SchoolDetail depends on, and that the page
 // no longer hardcodes audit values:
 //
-// Data (all 156 schools: 148 audited + 8 capture-only ASUN):
+// Data (all 434 schools: 148 audited + 286 capture-only — the ASUN proof
+// 8 plus the Nov 20–21 rollout of the remaining 278 D-I schools):
 //   - the 9 restored fields are populated (heroAssetType, hasScoreboard,
 //     scoreboardPosition, genderBalance, lazyLoading, hasGalleries,
 //     captureDate, screenshotFile, headlineTone)
 //   - mobileSticky matches the Sheet: every MIAA and Sun school is "No",
 //     every other school is "Yes" (the conference-template fingerprint
 //     from the 148-school content analysis) — Sheet-wide 20 No / 128 Yes,
-//     and all 20 are on the site now that the 7 missing schools are in
+//     and all 20 are on the site now that the 7 missing schools are in.
+//     These counts are scoped to the 148 audited schools: Nov 14
+//     capture-only records also carry mobileSticky/scoreboardPosition
+//     where the sweep recorded them, and must not pollute Sheet counts.
 //   - genderBalance has its 3 real variants, not a single hardcoded value
 //   - captureDate is 2026-06-03 for all 148 audited schools
 //     (the 8 capture-only ASUN schools carry 2026-11-20)
@@ -57,11 +61,14 @@ function byName(name) {
   return school
 }
 
-// --- data: all 156 populated (148 audited + 8 capture-only) ----------------
-check('schools count', schools.length, 156)
-// Sheet-only fields: the 8 capture-only ASUN schools were never in the
+// --- data: all 434 populated (148 audited + 286 capture-only) ----------------
+check('schools count', schools.length, 434)
+// Sheet-only fields: the 286 capture-only schools were never in the
 // Sheet, so these are asserted over the 148 audited schools only.
 // Capture-only schools omit them (undefined), and the page renders '—'.
+// (Nov 14 capture-only records DO carry hasScoreboard, scoreboardPosition,
+// hasMerch, hasRecruiting, ticketWeight and mobileSticky where the sweep
+// recorded them — those are capture facts, not Sheet facts.)
 const audited = schools.filter((s) => !s.captureOnly)
 const newFields = ['heroAssetType', 'scoreboardPosition', 'genderBalance', 'lazyLoading', 'captureDate', 'screenshotFile', 'headlineTone']
 for (const f of newFields) {
@@ -69,40 +76,56 @@ for (const f of newFields) {
   check(`field ${f} populated for all audited (missing)`, missing, 0)
 }
 check('hasScoreboard present for all audited', audited.filter((s) => typeof s.hasScoreboard !== 'boolean').length, 0)
-check('hasGalleries present for all 156', schools.filter((s) => typeof s.hasGalleries !== 'boolean').length, 0)
+check('hasGalleries present for all 434', schools.filter((s) => typeof s.hasGalleries !== 'boolean').length, 0)
 check('captureDate is 2026-06-03 for all audited', audited.filter((s) => s.captureDate !== '2026-06-03').length, 0)
-check('captureDate is 2026-11-20 for all 8 capture-only', schools.filter((s) => s.captureOnly && s.captureDate !== '2026-11-20').length, 0)
+check('captureDate is 2026-11-20 for all 210 Nov 20 capture-only', schools.filter((s) => s.captureOnly && s.captureDate === '2026-11-20').length, 210)
+check('captureDate is 2026-11-14 for all 76 Nov 14 capture-only', schools.filter((s) => s.captureOnly && s.captureDate === '2026-11-14').length, 76)
 
-// --- capture-only ASUN proof (ids 149–156) -----------------------------------
-// Records built from the Nov 20 live sweep only: no Sheet row, no editorial
+// --- capture-only rollout (ids 149–434) --------------------------------------
+// Records built from the live sweeps only: no Sheet row, no editorial
 // audit yet. The page must say so (pending text) instead of rendering
 // empty blocks, and must never claim a field the capture didn't record.
 const captureOnly = schools.filter((s) => s.captureOnly)
-check('capture-only count', captureOnly.length, 8)
-check('capture-only are all ASUN', captureOnly.filter((s) => s.conf !== 'ASUN').length, 0)
+check('capture-only count', captureOnly.length, 286)
 check('capture-only are all Division I', captureOnly.filter((s) => s.div !== 'Division I').length, 0)
-check('capture-only are all Sidearm', captureOnly.filter((s) => s.cms !== 'Sidearm Sports').length, 0)
 check('capture-only editorial is empty (pending, not invented)',
   captureOnly.filter((s) => (s.love || s.strengths || s.areas || s.loveFull || s.strengthsFull || s.areasFull).trim()).length, 0)
-check('capture-only heroCopy + headline present',
-  captureOnly.filter((s) => !(s.heroCopy || '').trim() || !(s.headline || '').trim()).length, 0)
-check('capture-only ids are 149–156', JSON.stringify(captureOnly.map((s) => s.id)), JSON.stringify([149, 150, 151, 152, 153, 154, 155, 156]))
+// Every capture-only school has at least one of heroCopy/headline verbatim.
+// 13 have only one: headline "" at Eastern Michigan, Kansas City, Omaha,
+// Eastern Washington, Abilene Christian, Eastern Kentucky; heroCopy "" at
+// Bethune-Cookman, Northwestern State, UIC, Northern Iowa, Monmouth,
+// North Carolina A&T, Memphis, Charlotte. Eastern Washington's heroCopy is
+// the verbatim first promo tile ("Football Season Tickets Available Now").
+check('capture-only heroCopy or headline present (missing both)',
+  captureOnly.filter((s) => !(s.heroCopy || '').trim() && !(s.headline || '').trim()).length, 0)
+check('capture-only with both heroCopy and headline', captureOnly.filter((s) => (s.heroCopy || '').trim() && (s.headline || '').trim()).length, 272)
+check('capture-only ids are 149–434 with no gaps',
+  new Set(captureOnly.map((s) => s.id)).size === 286 && Math.min(...captureOnly.map((s) => s.id)) === 149 && Math.max(...captureOnly.map((s) => s.id)) === 434, true)
+check('capture-only CMS is Sidearm 276 / WMT 7 / PrestoSports 2 / omitted 1',
+  JSON.stringify([captureOnly.filter((s) => s.cms === 'Sidearm Sports').length, captureOnly.filter((s) => s.cms === 'WMT Digital').length, captureOnly.filter((s) => s.cms === 'PrestoSports').length, captureOnly.filter((s) => !s.cms).length]),
+  JSON.stringify([276, 7, 2, 1]))
+const expectedConfCounts = { 'ASUN': 8, 'SWAC': 12, 'Southland': 12, 'MAC': 12, 'Horizon League': 12, 'Big West': 12, 'Northeast': 9, 'Ivy League': 8, 'Ohio Valley': 9, 'Southern': 11, 'Summit League': 8, 'West Coast': 10, 'America East': 9, 'Big Sky': 11, 'CUSA': 10, 'Missouri Valley': 11, 'Patriot League': 10, 'Big South': 9, 'MEAC': 8, 'Mountain West': 10, 'United Athletic': 9, 'Pac-12': 9, 'Atlantic 10': 14, 'Sun Belt': 14, 'MAAC': 13, 'CAA': 13, 'American': 13 }
+const confCounts = captureOnly.reduce((m, s) => { m[s.conf] = (m[s.conf] || 0) + 1; return m }, {})
+const sortedCounts = (o) => JSON.stringify(Object.entries(o).sort(([a], [b]) => a.localeCompare(b)))
+check('capture-only per-conference counts', sortedCounts(confCounts), sortedCounts(expectedConfCounts))
 
 // Mobile sticky is a conference template: MIAA + Sun are all "No", rest "Yes".
 // Sheet-wide that is 20 No / 128 Yes — and all 20 No schools are on the
 // site now, since the 6 missing MIAA schools (all sticky-No) are in.
-const stickyNo = schools.filter((s) => s.mobileSticky === 'No')
-check('mobileSticky No count', stickyNo.length, 20)
-check('mobileSticky No are all MIAA or Sun',
+// Scoped to the 148 audited schools: Nov 14 capture-only records also
+// carry mobileSticky where the sweep recorded it.
+const stickyNo = audited.filter((s) => s.mobileSticky === 'No')
+check('mobileSticky No count (audited)', stickyNo.length, 20)
+check('mobileSticky No are all MIAA or Sun (audited)',
   stickyNo.filter((s) => !['MIAA', 'The Sun Conference'].includes(s.conf)).length, 0)
-check('mobileSticky Yes count', schools.filter((s) => s.mobileSticky === 'Yes').length, 128)
+check('mobileSticky Yes count (audited)', audited.filter((s) => s.mobileSticky === 'Yes').length, 128)
 
 // Gender balance is real Sheet data with 3 variants, not one hardcoded value.
 const genders = [...new Set(audited.map((s) => s.genderBalance))].sort()
 check('genderBalance variants', JSON.stringify(genders),
   JSON.stringify(['Balanced', 'Balanced Representation', 'Equitable Split']))
-check('heroAssetType "Image" count (Sheet: 112)', schools.filter((s) => s.heroAssetType === 'Image').length, 112)
-check('scoreboardPosition "Top" count (Sheet: 102)', schools.filter((s) => s.scoreboardPosition === 'Top').length, 102)
+check('heroAssetType "Image" count (Sheet: 112, audited)', audited.filter((s) => s.heroAssetType === 'Image').length, 112)
+check('scoreboardPosition "Top" count (Sheet: 102, audited)', audited.filter((s) => s.scoreboardPosition === 'Top').length, 102)
 check('lazyLoading all "No" (Sheet truth, not a default)', audited.filter((s) => s.lazyLoading !== 'No').length, 0)
 
 // --- themeFor: proven cases -------------------------------------------------
@@ -116,13 +139,21 @@ check('Auburn (War Eagle Tradition) → Identity / brand', themeFor('War Eagle T
 check('Whitman (General News) → School news', themeFor('General News'), 'School news')
 check('Mount Marty (All-American Honors) → Honors / academics', themeFor('All-American Honors'), 'Honors / academics')
 check('Fort Hays (Athlete Spotlight) → Identity / brand', themeFor('Athlete Spotlight'), 'Identity / brand')
+// Gameday hubs land Identity / brand, not Game action: "Gameday" contains
+// "game", so the gameday/hub check runs before the generic game check
+// (2026-11-21 reorder — the Identity / brand theme line explicitly covers
+// "a slogan or a gameday hub"). This flips one audited school too:
+// Nebraska-Kearney's "Gameday Coverage" was Game action, now Identity /
+// brand — a correction, not a regression.
+check('Gameday Hub → Identity / brand', themeFor('Gameday Hub'), 'Identity / brand')
+check('Nebraska-Kearney (Gameday Coverage) → Identity / brand', themeFor('Gameday Coverage'), 'Identity / brand')
 
 // Every school's narrative maps to a known theme (no undefined).
 const themes = new Set(schools.map((s) => themeFor(s.hero)))
 const known = new Set(['Ticket push', 'Honors / academics', 'Celebration / title', 'Coach / staff', 'Schedule release', 'Game action', 'Event / ceremony', 'Recruiting / roster', 'Identity / brand', 'School news'])
 check('all themes are known', [...themes].filter((t) => !known.has(t)).length, 0)
 
-// --- emphasisFor / pillarSignals / ideasFromSchool for all 156 -------------
+// --- emphasisFor / pillarSignals / ideasFromSchool for all 434 -------------
 let emphasisBad = 0
 let pillarBad = 0
 let ideasBad = 0
@@ -143,9 +174,9 @@ for (const s of schools) {
     if (idea.stealIt === 'Copy the layout, not the copy — adapt what they did to your school.') ideasBad++
   }
 }
-check('emphasisFor valid for all 156 (bad)', emphasisBad, 0)
-check('pillarSignals valid for all 156 (bad)', pillarBad, 0)
-check('ideasFromSchool 1–2 valid ideas for all 156 (bad)', ideasBad, 0)
+check('emphasisFor valid for all 434 (bad)', emphasisBad, 0)
+check('pillarSignals valid for all 434 (bad)', pillarBad, 0)
+check('ideasFromSchool 1–2 valid ideas for all 434 (bad)', ideasBad, 0)
 
 // Spot checks on the derived ideas.
 const nd = ideasFromSchool(byName('Notre Dame Fighting Irish'))
@@ -167,7 +198,13 @@ const fgcuIdeas = ideasFromSchool(byName('Florida Gulf Coast Eagles'))
 check('FGCU ideas carry the Nov 20 capture date', fgcuIdeas.every((i) => i.captureDate === '2026-11-20'), true)
 
 // --- live notes --------------------------------------------------------------
-check('liveNotes covers exactly 18 schools', Object.keys(liveNotes).length, 18)
+// 296 schools: the 3 fully audited live (Ohio State 13, Fort Hays 65,
+// Mount Marty 112), the 7 homepage-only audits from the missing-7 run
+// (142–148), the 8 ASUN proof captures (149–156) and the 278 rollout
+// captures (157–434). The original 18 keep per-id checks; the 278 new
+// ones are checked in aggregate (per-id lines for 296 schools would be
+// ~3,000 lines of output).
+check('liveNotes covers exactly 296 schools', Object.keys(liveNotes).length, 296)
 for (const id of [13, 65, 112, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156]) {
   const n = getLiveNotes(id)
   check(`liveNotes[${id}] exists`, !!n, true)
@@ -180,6 +217,20 @@ for (const id of [13, 65, 112, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151,
     check(`liveNotes[${id}] pillars.${k} present`, !!(n && n.pillars[k]), true)
   }
   check(`liveNotes[${id}] steal present`, !!(n && n.steal), true)
+}
+{
+  // Rollout entries 157–434: audited date by capture run — Nov 20 for
+  // ids 157–358, Nov 14 for 359–434.
+  let bad = 0
+  for (let id = 157; id <= 434; id++) {
+    const n = getLiveNotes(id)
+    if (!n || n.schoolId !== id) { bad++; continue }
+    if (n.audited !== (id <= 358 ? '2026-11-20' : '2026-11-14')) bad++
+    for (const k of ['audio', 'video', 'photos', 'social']) if (!n.media[k]) bad++
+    for (const k of ['tickets', 'sportHub', 'roster', 'giving']) if (!n.pillars[k]) bad++
+    if (!n.steal) bad++
+  }
+  check('liveNotes[157–434] all present with right date, media, pillars, steal (bad)', bad, 0)
 }
 check('no live notes for Nebraska (not audited live)', getLiveNotes(1), null)
 check('liveNotes ids all exist in schools.js',
