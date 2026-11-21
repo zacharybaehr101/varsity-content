@@ -33,6 +33,7 @@
 // adding a "soar past" game rule is a possible future tweak, not
 // part of the add-schools change.
 
+import { readFileSync } from 'node:fs'
 import { schools } from '../src/data/schools.js'
 import {
   classifyStory,
@@ -118,6 +119,16 @@ check('unclear items', counts.unclear, 5)
 const unclear = feed.filter((i) => i.kind === 'unclear').map((i) => i.schoolName).sort()
 check('unclear items are Alabama + Central Missouri + Newman + Texas Tech + Whitman', JSON.stringify(unclear), JSON.stringify(['Alabama Crimson Tide', 'Central Missouri Mules', 'Newman Jets', 'Texas Tech Red Raiders', 'Whitman Blues']))
 check('feed is A–Z by school', JSON.stringify(feed.map((i) => i.schoolName)) === JSON.stringify([...feed.map((i) => i.schoolName)].sort((a, b) => a.localeCompare(b))), true)
+
+// --- Categories hidden from the page (2026-11-20) ---------------------------
+// The classifier still runs (the counts above prove it), but the News page
+// no longer surfaces the kinds: no announcement toggle, no kind tag, no
+// category counts in the capture note. The feed is feature-only.
+const newsPage = readFileSync(new URL('../src/pages/News.jsx', import.meta.url), 'utf8')
+for (const frag of ['kindTag', 'Include announcements', 'includeAnnouncements', 'counts.announcement', 'counts.preview', 'counts.game']) {
+  check(`news page hides ${frag}`, newsPage.includes(frag), false)
+}
+check('news page is feature-only', newsPage.includes("item.kind !== 'feature'"), true)
 
 console.log('\n--- Feed counts ---')
 console.log(counts)

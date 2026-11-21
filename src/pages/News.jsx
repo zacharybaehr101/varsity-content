@@ -39,7 +39,6 @@ export default function News() {
   const [sport, setSport] = useState('')
   const [div, setDiv] = useState('')
   const [conf, setConf] = useState('')
-  const [includeAnnouncements, setIncludeAnnouncements] = useState(false)
   const [showAll, setShowAll] = useState(false)
   const [saved, setSaved] = useState(loadSaved)
 
@@ -53,14 +52,12 @@ export default function News() {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase()
+    // Feature stories only. The category labels (announcement / preview /
+    // game / unclear) are hidden from the page (2026-11-20), so nothing
+    // here is filtered or sorted by kind — the classifier still runs in
+    // src/lib/news.js, its output just isn't shown.
     return feed.filter((item) => {
-      if (item.kind === 'feature') {
-        // always shown
-      } else if (item.kind === 'announcement' && includeAnnouncements) {
-        // shown only with the toggle on
-      } else {
-        return false
-      }
+      if (item.kind !== 'feature') return false
       if (sport && item.sport !== sport) return false
       if (div && item.division !== div) return false
       if (conf && item.conference !== conf) return false
@@ -70,7 +67,7 @@ export default function News() {
       }
       return true
     })
-  }, [feed, query, sport, div, conf, includeAnnouncements])
+  }, [feed, query, sport, div, conf])
 
   const visible = showAll ? results : results.slice(0, PAGE_SIZE)
   const hasFilters = query || sport || div || conf
@@ -110,9 +107,7 @@ export default function News() {
 
       <div className={styles.container}>
         <p className={styles.captureNote}>
-          {counts.feature} feature stories from {counts.total} schools — plus{' '}
-          {counts.announcement} announcements, {counts.preview} previews and{' '}
-          {counts.game} game stories held out of this feed. Sorted A–Z by school:
+          {counts.feature} stories from {counts.total} schools. Sorted A–Z by school:
           the captures carry no story dates, so nothing here is sorted by recency.
         </p>
 
@@ -152,23 +147,10 @@ export default function News() {
           </div>
         </div>
 
-        <label className={styles.toggle}>
-          <input
-            type="checkbox"
-            checked={includeAnnouncements}
-            onChange={(e) => { setIncludeAnnouncements(e.target.checked); setShowAll(false) }}
-          />
-          <span>
-            Include announcements ({counts.announcement}) — ticket on-sales,
-            schedule releases, and signings. Idea-worthy, just not features.
-          </span>
-        </label>
-
         {results.length === 0 && (
           <div className={styles.empty}>
             <div className={styles.emptyText}>
-              No feature stories match those filters. Try clearing a filter,
-              or tick “Include announcements”.
+              No stories match those filters. Try clearing a filter.
             </div>
             <button className={styles.moreBtn} onClick={clearFilters}>Clear filters</button>
           </div>
@@ -184,9 +166,6 @@ export default function News() {
             <article key={item.id} className={styles.card}>
               <div className={styles.cardTop}>
                 <span className={styles.sportTag}>{item.sport}</span>
-                {item.kind === 'announcement' && (
-                  <span className={styles.kindTag}>Announcement</span>
-                )}
                 <span className={styles.reason}>{item.reason}</span>
               </div>
               <h2 className={styles.headline}>{item.title}</h2>
@@ -194,7 +173,7 @@ export default function News() {
                 {item.schoolName} · {item.division} · {item.conference}
               </div>
               <p className={styles.why}>
-                <strong>Why a {item.kind === 'announcement' ? 'story idea' : 'feature'}:</strong>{' '}
+                <strong>Why a feature:</strong>{' '}
                 {item.reason}. Source: {item.evidenceSource}, captured {item.captureDate}.
               </p>
               <div className={styles.cardActions}>
