@@ -142,23 +142,6 @@
   color: var(--brand);
 }
 
-.toggle {
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--muted);
-  margin: 4px 0 16px;
-  cursor: pointer;
-}
-
-.toggle input {
-  margin-top: 2px;
-  accent-color: var(--brand);
-}
-
 /* LIST */
 .list {
   display: flex;
@@ -189,18 +172,6 @@
   text-transform: uppercase;
   color: #fff;
   background: var(--brand);
-  padding: 4px 10px;
-  border-radius: 3px;
-}
-
-.kindTag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--ink);
-  background: var(--gold);
   padding: 4px 10px;
   border-radius: 3px;
 }

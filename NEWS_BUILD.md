@@ -1,5 +1,25 @@
 # News — feature-story feed (v1: curated snapshot, NOT live RSS)
 
+## 2026-11-20: categories hidden (Zachary)
+The schools aren't producing feature-story headlines the way he hoped, so
+the category labels are hidden from the page — not deleted. `src/lib/news.js`
+(the classifier) and `scripts/test-news.mjs` (classifier + counts) are
+untouched; the kinds still classify, they just aren't shown.
+- `src/pages/News.jsx`: "Include announcements" toggle removed — the feed
+  is now feature-only (85 stories); the "Announcement" kind tag is gone;
+  the capture note no longer breaks out announcement/preview/game counts
+  ("85 stories from 148 schools"); "Why a feature/story idea" → "Why a
+  feature:"; empty state no longer mentions the toggle.
+- `src/pages/News.module.css`: `.toggle` and `.kindTag` rules removed.
+- `scripts/test-news.mjs`: 7 new guard checks (38 → 45) asserting the page
+  contains no `kindTag`, no "Include announcements", no
+  `includeAnnouncements`, no `counts.announcement/preview/game`, and that
+  the feed filter is `item.kind !== 'feature'`.
+- Verified: news 45/45, school-page 207/207, build passes, headless
+  screenshot at 1280px shows no toggle, no kind tags, no category counts.
+- Reversible in one edit: re-add the toggle + the `item.kind ===
+  'announcement'` branch and the announcements return to the feed.
+
 Built 2026-11-14 in the local clone at `~/workspace/varsity-content-build`
 (repo `zacharybaehr101/varsity-content`, main, HEAD `7286d6aa`, 2026-06-04,
 on top of the idea-search UI and My Ideas from `IDEA_SEARCH_BUILD.md` /
