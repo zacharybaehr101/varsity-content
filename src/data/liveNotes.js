@@ -12,10 +12,20 @@
 // (homepage media/social supplements in varsity-audit-2026-11-14.md)
 // or ~/workspace/user/files/varsity-missing-7-audit-2026-11-14.md.
 //
+// Eight more were captured live on the homepage only in the ASUN run
+// (Nov 20, 2026): Bellarmine 149, Florida Gulf Coast 150, Jacksonville
+// 151, Lipscomb 152, Queens 153, Stetson 154, North Florida 155,
+// West Florida 156. These are capture-only records (captureOnly in
+// schools.js) — no full editorial audit yet — so their live notes carry
+// the sweep's media/social and pillar facts, and the roster and giving
+// lines say plainly that those pages were not visited. Source:
+// ~/workspace/user/files/varsity-asun-sweep-2026-11-20.md.
+//
 // Keyed by school id. A school with no entry here simply has no live
 // notes yet — the page says so, rather than inventing any.
 
 export const LIVE_NOTES_DATE = '2026-11-14'
+export const CAPTURE_ONLY_DATE = '2026-11-20'
 
 export const liveNotes = {
   // Ohio State Buckeyes — id 13
@@ -197,6 +207,150 @@ export const liveNotes = {
       giving: 'Donate is a header pill, NIL is a main nav item, and the Yea Alabama feature fronts quarterback Austin Mack with a Join today ask. The giving and NIL pages themselves were not audited.',
     },
     steal: 'Let the hero sell the next on-sale item, repeat the ticket link in Quick Links and in the next game\u2019s Top Story, and keep a persistent ticket-help button on screen.',
+  },
+  // Bellarmine Knights — id 149 (homepage capture only, Nov 20, 2026)
+  149: {
+    schoolId: 149,
+    audited: CAPTURE_ONLY_DATE,
+    media: {
+      audio: 'No audio player noted on the homepage in the Nov 20 capture.',
+      video: 'No video section on the homepage — no video or gallery section.',
+      photos: 'No photo gallery section on the homepage. The hero is a 6-slide Top Stories carousel.',
+      social: 'Header icons (Facebook, X, Instagram, YouTube); "KNIGHTS SOCIAL" content-stream section present but empty — a blank white box, still empty after a 10-second wait.',
+    },
+    pillars: {
+      tickets: 'Header TICKETS link, plus "Buy tickets" links in events. No ticket promo in the hero; the promo below the hero is Norton Sports Health / gear ("free GROUND SHIPPING ORDERS OF $75+").',
+      sportHub: 'Top Stories carousel (6 slides) plus Knights Events. Streaming: no provider named — only generic "Live video" links.',
+      roster: 'Roster pages were not part of this homepage capture — no live notes yet.',
+      giving: 'Giving pages were not part of this homepage capture — no live notes yet. NIL is absent from the homepage and menus.',
+    },
+    steal: 'A blank social section is worse than none — Bellarmine\u2019s "KNIGHTS SOCIAL" renders as an empty white box. Check yours actually loads posts.',
+  },
+  // Florida Gulf Coast Eagles — id 150 (homepage capture only, Nov 20, 2026)
+  150: {
+    schoolId: 150,
+    audited: CAPTURE_ONLY_DATE,
+    media: {
+      audio: 'No audio player noted on the homepage in the Nov 20 capture.',
+      video: 'Videos section, latest Nov 19 — "Flight Plan S1 E06 with Thais Baziquetto-Allen, Abby Toeniskoetter and Josh Molino." The freshest video in the conference.',
+      photos: 'Photo galleries present and fresh — Nov 18 "FGCU at FAU" MBB (6 images), Nov 15 vs. Abraham Baldwin (21), Nov 14 vs. FAU WBB (37).',
+      social: '"Eagles Social" section present but empty — text reads "No all posts available." Footer "Follow Us" links: Facebook, Twitter, Instagram, YouTube; Social Media Hub in the Fans menu.',
+    },
+    pillars: {
+      tickets: 'Header Tickets link plus a green pill Tickets button, Quick Links "Buy Your Tickets Today!", and a TICKETS link in the lead story. No ticket promo in the hero/lead.',
+      sportHub: '"By The Numbers" strip above a "Latest News" grid. Lead story carries TICKETS / LIVE STREAM / LIVE STATS / GAME NOTES with an ESPN+ logo. "FGCU on ESPN+" tile in the promo rotator and in the Fans menu, plus a header Watch link and an Eagles Watch+ tile.',
+      roster: 'Roster pages were not part of this homepage capture — no live notes yet.',
+      giving: 'Giving pages were not part of this homepage capture — no live notes yet. NIL is menu-only ("NIL" / "Name, Image, Likeness Information" under the Athletes menu).',
+    },
+    steal: 'The "By The Numbers" strip above the news grid (82 NCAA appearances / 35 tournament victories / 126 conference players of the year / 117 conference championships / 9 academic All-Americans) — institutional proof before a single story.',
+  },
+  // Jacksonville Dolphins — id 151 (homepage capture only, Nov 20, 2026)
+  151: {
+    schoolId: 151,
+    audited: CAPTURE_ONLY_DATE,
+    media: {
+      audio: 'No audio player noted on the homepage in the Nov 20 capture.',
+      video: 'Dolphin Vision present, but stale in rotation — latest seen Nov 2 ("Head coach Jordan Mincy and Jamie Phillips Jr. talk big win over TCJ 11/02/26"); the rotator also shows a May 6 video.',
+      photos: 'No photo galleries named or present on the homepage.',
+      social: 'Populated — "Social" section, "Follow us @JAX_DOLPHINS," three posts visible (Lacrosse Community Day; Veterans Day; "Hoops Season Is Here"), with Twitter/Facebook/Instagram links.',
+    },
+    pillars: {
+      tickets: 'Header TICKETS link. The ticket push happens before the homepage — a first-visit splash gate for 2026-27 MBB season tickets ("ON SALE NOW!") with a "Continue to Home" step. The only "Buy tickets" link in the schedule list was for away MBB at UCF, Dec 1.',
+      sportHub: 'Top Stories below the brand hero. Hero and schedule use generic "Live video" links with no provider named; ESPN+ appears only in a mid-page banner ad and as "ESPN+ FAQ" in the Fan Zone menu.',
+      roster: 'Roster pages were not part of this homepage capture — no live notes yet.',
+      giving: 'Giving pages were not part of this homepage capture — no live notes yet. NIL is absent from the homepage and menus.',
+    },
+    steal: 'The brand-slogan hero ("EXCEED EXPECTATIONS") over a single strong photo — no headline, no rotator, the brand is the hero.',
+  },
+  // Lipscomb Bisons — id 152 (homepage capture only, Nov 20, 2026)
+  152: {
+    schoolId: 152,
+    audited: CAPTURE_ONLY_DATE,
+    media: {
+      audio: 'No audio player noted on the homepage in the Nov 20 capture.',
+      video: 'Video Zone present (latest Nov 12) but appears twice on the page.',
+      photos: 'No gallery section observed on the homepage.',
+      social: '#HORNSUP populated (Nov 3–10).',
+    },
+    pillars: {
+      tickets: 'Header "Buy Tickets" link.',
+      sportHub: 'Story hero (volleyball postseason awards). ESPN+ appears only as a footer logo — no mention in the homepage body or menus. Root redirects to a Game Day page (3 Nov 20 events) — the homepage is reached only via /index.aspx; the redirect page is sparse, with empty score parentheses and failed team logos.',
+      roster: 'Roster pages were not part of this homepage capture — no live notes yet.',
+      giving: 'Giving pages were not part of this homepage capture — no live notes yet. NIL is absent — 0 occurrences on the homepage.',
+    },
+    steal: 'The populated #HORNSUP feed — a week of recent posts at capture, the most alive social section in the conference.',
+  },
+  // Queens Royals — id 153 (homepage capture only, Nov 20, 2026)
+  153: {
+    schoolId: 153,
+    audited: CAPTURE_ONLY_DATE,
+    media: {
+      audio: 'No audio player noted on the homepage in the Nov 20 capture.',
+      video: 'Video stale — 3 items, all "Queens Coaches Show", latest May 6, 2026.',
+      photos: 'No gallery section on the homepage.',
+      social: '#GoRoyals populated visually (Nov 20 x3) but the Nov 20 tiles carry no caption text.',
+    },
+    pillars: {
+      tickets: 'Header Tickets link.',
+      sportHub: '3-slide Stories Slider. ESPN+ absent entirely; NIL absent — 0 occurrences on the homepage.',
+      roster: 'Roster pages were not part of this homepage capture — no live notes yet.',
+      giving: 'Giving pages were not part of this homepage capture — no live notes yet. NIL is absent — 0 occurrences on the homepage.',
+    },
+    steal: 'The Hall of Fame splash gate ("2027 QUEENS ATHLETICS HALL OF FAME" with Continue to Home / Skip Permanently) — a first-visit gate that promotes heritage instead of selling.',
+  },
+  // Stetson Hatters — id 154 (homepage capture only, Nov 20, 2026)
+  154: {
+    schoolId: 154,
+    audited: CAPTURE_ONLY_DATE,
+    media: {
+      audio: 'No audio player noted on the homepage in the Nov 20 capture.',
+      video: 'No dedicated video section (filters inside the social stream only).',
+      photos: 'No dedicated gallery section (filters inside the social stream only).',
+      social: '#GOHATTERS populated (captioned Instagram posts).',
+    },
+    pillars: {
+      tickets: 'Prominent green Tickets/Donate/Shop bar plus a "Basketball Single Game Tickets" ad banner below Top Stories.',
+      sportHub: '6-slide Top Stories rotator. ESPN+ is menu-only ("Upcoming ESPN+ Events" in the collapsed Hatter Fans menu); no mention in the homepage body.',
+      roster: 'Roster pages were not part of this homepage capture — no live notes yet.',
+      giving: 'Giving pages were not part of this homepage capture — no live notes yet. NIL is menu-only ("Stetson NIL Merch"); no homepage tile or header link.',
+    },
+    steal: 'The green Tickets/Donate/Shop bar plus a single-game ticket ad banner — tickets, giving, and merch in one persistent strip.',
+  },
+  // North Florida Ospreys — id 155 (homepage capture only, Nov 20, 2026)
+  155: {
+    schoolId: 155,
+    audited: CAPTURE_ONLY_DATE,
+    media: {
+      audio: 'No audio player noted on the homepage in the Nov 20 capture.',
+      video: 'VIDEOS: 3 items, all Oct 22 — women\u2019s basketball media availability (about a month stale on Nov 20).',
+      photos: 'PHOTO GALLERIES fresh — "Volleyball vs FGCU" (6 images, 45m ago), "Men\u2019s Soccer at Vermont" (10 images, Nov 19), "Volleyball vs Queens" (9 images, Nov 19).',
+      social: 'Feed empty; icons/links in the header (Facebook, X, Instagram, YouTube). The SOCIAL MEDIA section reads, verbatim, "No all posts available."',
+    },
+    pillars: {
+      tickets: 'White "Tickets" button in the header (with Shop and Donate), a TICKETS menu, "Purchase Tickets" in Quick Links, and ticket promos in two of five hero rotator slides.',
+      sportHub: '5-slide promo rotator (tickets, Mayo Clinic partnership, a letter from the VP, boosters) with the lead story below it. No streaming provider named anywhere on the homepage.',
+      roster: 'Roster pages were not part of this homepage capture — no live notes yet.',
+      giving: 'Giving pages were not part of this homepage capture — no live notes yet. NIL is menu-only ("NIL Guidance" under INSIDE ATHLETICS). The bottom promo is the "Swoop Impact Fund" (not labelled NIL on the homepage).',
+    },
+    steal: 'The ticket-led hero rotator — two of five slides sell tickets — plus fresh photo galleries (Volleyball vs FGCU, 45 minutes old at capture).',
+  },
+  // West Florida Argonauts — id 156 (homepage capture only, Nov 20, 2026)
+  156: {
+    schoolId: 156,
+    audited: CAPTURE_ONLY_DATE,
+    media: {
+      audio: 'No audio player noted on the homepage in the Nov 20 capture.',
+      video: 'No VIDEOS or PHOTO GALLERIES region on the homepage; only the schedule\u2019s generic Watch links. A "Slideshow champions" region is present but empty.',
+      photos: 'No photo galleries region on the homepage. A "Slideshow champions" region is present but empty (blank link only).',
+      social: 'Feed empty; icons/links in the header (Facebook, Twitter/X, Instagram, YouTube). The SOCIAL MEDIA heading is present with no posts under it (blank white space).',
+    },
+    pillars: {
+      tickets: 'No standalone header ticket button — the header has only menu buttons (TEAMS, INSIDE ATHLETICS, FAN ZONE, TICKETS, ARGONAUT ATHLETIC CLUB, STUDENT-ATHLETES). Ticket promo is in the Promo A rotator ("2026 Season Tickets ON SALE NOW"); "Buy Tickets" appears in QUICK LINKS and in the schedule.',
+      sportHub: 'Promo A ad rotator (sponsor/ticket promos) above the story-led Top Big Story. No streaming provider named — schedule Watch links are generic "Live video" with no platform.',
+      roster: 'Roster pages were not part of this homepage capture — no live notes yet.',
+      giving: 'Giving pages were not part of this homepage capture — no live notes yet. NIL is absent — no "NIL" anywhere in the homepage text, including all menus.',
+    },
+    steal: 'Division I transition storytelling on the homepage itself — "ARGOS WIN FIRST DIVISION I GAME AT PENAIR FIELD HOUSE" (MBB, Nov 17) — a milestone as a story, not a press release.',
   },
 }
 

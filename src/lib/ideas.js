@@ -220,7 +220,7 @@ export function ideaFromEvidence(school, evidence, evidenceSource) {
     evidenceSource,
     stealIt: STEAL_IT[angle] || '',
     effort: EFFORT[`${school.name}|${angle}`] || null,
-    captureDate: CAPTURE_DATE,
+    captureDate: school.captureDate || CAPTURE_DATE,
   }
 }
 
@@ -294,7 +294,7 @@ export function getIdeaByKey(schoolId, ideaKey, list) {
     evidenceSource: best.label,
     stealIt: STEAL_IT[angle] || '',
     effort: EFFORT[`${school.name}|${angle}`] || null,
-    captureDate: CAPTURE_DATE,
+    captureDate: school.captureDate || CAPTURE_DATE,
   }
 }
 
@@ -397,7 +397,7 @@ export function searchIdeas(query, { division = '', conference = '', list = null
       stealIt: STEAL_IT[angle] || '',
       effort: EFFORT[`${school.name}|${angle}`] || null,
       score: Math.round(score * 10) / 10,
-      captureDate: CAPTURE_DATE,
+      captureDate: school.captureDate || CAPTURE_DATE,
     })
   }
 

@@ -29,7 +29,7 @@ export default function SchoolCard({ school, locked, index, compact }) {
         </div>
         <div className={styles.love}>
           <span className={styles.loveLabel}>What We Love</span>
-          <p>{school.love}</p>
+          <p>{school.captureOnly ? 'Full audit coming — live capture from Nov 20, 2026.' : school.love}</p>
         </div>
         <Link to={`/school/${school.id}`} className={styles.detailBtn}>
           Full Analysis →
@@ -49,9 +49,11 @@ export default function SchoolCard({ school, locked, index, compact }) {
           </span>
           <span className={styles.confBadge}>{school.conf}</span>
           <span className={styles.cmsBadge}>{school.cms}</span>
+          {school.navCount == null ? null : (
           <span className={styles.navBadge}>
             <span className={styles.navNum}>{school.navCount}</span> nav
           </span>
+          )}
         </div>
 
         {locked ? (
@@ -66,11 +68,11 @@ export default function SchoolCard({ school, locked, index, compact }) {
           <>
             <div className={styles.love}>
               <span className={styles.loveLabel}>What We Love</span>
-              <p>{school.love}</p>
+              <p>{school.captureOnly ? 'Full audit coming — live capture from Nov 20, 2026.' : school.love}</p>
             </div>
             <div className={styles.areas}>
               <span className={styles.areasLabel}>Areas of Opportunity</span>
-              <p>{school.areas}</p>
+              <p>{school.captureOnly ? 'Full audit coming — live capture from Nov 20, 2026.' : school.areas}</p>
             </div>
             <Link to={`/school/${school.id}`} className={styles.detailBtn}>
               Full Analysis →
