@@ -13,15 +13,6 @@ const STATS = [
   { num: '2026', label: 'Index Year' },
 ]
 
-const CONF_HIGHLIGHTS = [
-  { name: 'Big Ten', count: schools.filter(s => s.conf === 'Big Ten').length, div: 'Division I' },
-  { name: 'SEC', count: schools.filter(s => s.conf === 'SEC').length, div: 'Division I' },
-  { name: 'ACC', count: schools.filter(s => s.conf === 'ACC').length, div: 'Division I' },
-  { name: 'Big 12', count: schools.filter(s => s.conf === 'Big 12').length, div: 'Division I' },
-  { name: 'Big East', count: schools.filter(s => s.conf === 'Big East').length, div: 'Division I' },
-  { name: 'MIAA', count: schools.filter(s => s.conf === 'MIAA').length, div: 'Division II' },
-]
-
 export default function Home() {
   const navigate = useNavigate()
   const [ideaQuery, setIdeaQuery] = useState('')
@@ -110,28 +101,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* CONFERENCE GRID */}
-        <section className={styles.section}>
-          <div className={styles.sectionHead}>
-            <div className={styles.eyebrow}>Coverage</div>
-            <h2 className={styles.h2}>Conferences in the Index</h2>
-          </div>
-          <div className={styles.confGrid}>
-            {CONF_HIGHLIGHTS.map(c => (
-              <Link key={c.name} to={`/index?conf=${encodeURIComponent(c.name)}`} className={styles.confCard}>
-                <div className={styles.confName}>{c.name}</div>
-                <div className={styles.confCount}>{c.count} schools</div>
-                <div className={styles.confDiv}>{c.div}</div>
-              </Link>
-            ))}
-            <Link to="/index" className={`${styles.confCard} ${styles.confCardMore}`}>
-              <div className={styles.confName}>+ More</div>
-              <div className={styles.confCount}>All conferences</div>
-              <div className={styles.confDiv}>D-II · D-III · NAIA</div>
-            </Link>
-          </div>
-        </section>
-
         {/* FEATURED SCHOOLS */}
         <section className={styles.section}>
           <div className={styles.sectionHead}>
@@ -141,7 +110,7 @@ export default function Home() {
           </div>
           <div className={styles.cardList}>
             {FEATURED.map(school => (
-              <SchoolCard key={school.id} school={school} locked={false} />
+              <SchoolCard key={school.id} school={school} locked={false} compact />
             ))}
           </div>
           <div className={styles.moreCta}>

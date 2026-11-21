@@ -179,9 +179,10 @@ const STEAL_IT = {
   'Freshman breakthrough': 'Pair the first-year record with academics in the same layout.',
   'Team title': 'Lead with the title — the whole team is the story.',
   'Track feature story': 'Give the non-revenue sport hero status while it is in postseason.',
-  'Ticket idea': 'Copy the layout, not the copy — adapt what they did to your school.',
-  'From the audit': 'Copy the layout, not the copy — adapt what they did to your school.',
 }
+// Generic angles ('From the audit', 'Ticket idea') intentionally have no
+// steal-it line: the one generic line repeated on nearly every card.
+// Ideas with those angles carry stealIt '' and render without a Steal-it row.
 
 // Effort hints only where the idea-search proof gives one.
 const EFFORT = {
@@ -217,7 +218,7 @@ export function ideaFromEvidence(school, evidence, evidenceSource) {
     angle,
     evidence: (evidence || '').trim(),
     evidenceSource,
-    stealIt: STEAL_IT[angle] || STEAL_IT['From the audit'],
+    stealIt: STEAL_IT[angle] || '',
     effort: EFFORT[`${school.name}|${angle}`] || null,
     captureDate: CAPTURE_DATE,
   }
@@ -291,7 +292,7 @@ export function getIdeaByKey(schoolId, ideaKey, list) {
     angle,
     evidence: best.text.trim(),
     evidenceSource: best.label,
-    stealIt: STEAL_IT[angle] || STEAL_IT['From the audit'],
+    stealIt: STEAL_IT[angle] || '',
     effort: EFFORT[`${school.name}|${angle}`] || null,
     captureDate: CAPTURE_DATE,
   }
@@ -393,7 +394,7 @@ export function searchIdeas(query, { division = '', conference = '', list = null
       angle,
       evidence: best ? best.text.trim() : '',
       evidenceSource: best ? best.field.label : '',
-      stealIt: STEAL_IT[angle] || STEAL_IT['From the audit'],
+      stealIt: STEAL_IT[angle] || '',
       effort: EFFORT[`${school.name}|${angle}`] || null,
       score: Math.round(score * 10) / 10,
       captureDate: CAPTURE_DATE,

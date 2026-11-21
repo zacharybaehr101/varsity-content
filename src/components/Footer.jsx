@@ -30,13 +30,6 @@ export default function Footer() {
             <Link to="/index?div=Division+III" className={styles.colLink}>Division III</Link>
             <Link to="/index?div=NAIA" className={styles.colLink}>NAIA</Link>
           </div>
-          <div className={styles.col}>
-            <div className={styles.colHead}>Conferences</div>
-            <Link to="/index?conf=Big+Ten" className={styles.colLink}>Big Ten</Link>
-            <Link to="/index?conf=ACC" className={styles.colLink}>ACC</Link>
-            <Link to="/index?conf=SEC" className={styles.colLink}>SEC</Link>
-            <Link to="/index?conf=Big+12" className={styles.colLink}>Big 12</Link>
-          </div>
         </div>
       </div>
 

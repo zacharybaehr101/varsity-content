@@ -267,61 +267,12 @@
   line-height: 1.5;
 }
 
-/* CONFERENCES */
-.confGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 10px;
-}
-
-.confCard {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.confCard:hover {
-  border-color: var(--brand);
-  box-shadow: 0 2px 12px rgba(214,40,40,0.08);
-}
-
-.confCardMore {
-  background: var(--surface-2);
-  border-style: dashed;
-}
-
-.confName {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 22px;
-  letter-spacing: 1px;
-  color: var(--ink);
-}
-
-.confCount {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--brand);
-}
-
-.confDiv {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  color: var(--muted);
-}
-
-/* CARD LIST */
+/* CARD LIST — featured audits: 3 across, not stacked */
 .cardList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: stretch;
 }
 
 .moreCta {
@@ -416,6 +367,7 @@
 @media (max-width: 768px) {
   .heroTitle { font-size: 56px; }
   .aboutGrid { grid-template-columns: 1fr; }
+  .cardList { grid-template-columns: 1fr; }
   .stat { padding: 14px 20px; }
   .statsBar { flex-wrap: wrap; }
 }

@@ -157,9 +157,11 @@ export default function Ideas() {
                   “{idea.evidence}”
                   <footer>— {idea.evidenceSource}, captured {idea.captureDate}</footer>
                 </blockquote>
-                <p className={styles.steal}>
-                  <strong>Steal it:</strong> {idea.stealIt}
-                </p>
+                {idea.stealIt && (
+                  <p className={styles.steal}>
+                    <strong>Steal it:</strong> {idea.stealIt}
+                  </p>
+                )}
                 <div className={styles.cardActions}>
                   <IdeaSaveButton
                     saved={savedKeys.has(idea.ideaKey)}
