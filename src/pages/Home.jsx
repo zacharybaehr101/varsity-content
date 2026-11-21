@@ -141,7 +141,7 @@ export default function Home() {
           </div>
           <div className={styles.cardList}>
             {FEATURED.map(school => (
-              <SchoolCard key={school.id} school={school} locked={false} />
+              <SchoolCard key={school.id} school={school} locked={false} compact />
             ))}
           </div>
           <div className={styles.moreCta}>

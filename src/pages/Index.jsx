@@ -7,33 +7,28 @@ import styles from './Index.module.css'
 const FREE_UNLOCKS = 3
 const PAGE_SIZE = 10
 
-const conferences = [...new Set(schools.map(s => s.conf))].sort()
 const divisions = ['Division I', 'Division II', 'Division III', 'NAIA']
 const cmsProviders = [...new Set(schools.map(s => s.cms))].sort()
 
 export default function Index() {
   const [params, setParams] = useSearchParams()
   const [search, setSearch] = useState('')
-  const [conf, setConf] = useState(params.get('conf') || '')
   const [div, setDiv] = useState(params.get('div') || '')
   const [cms, setCms] = useState('')
   const [page, setPage] = useState(1)
 
   useEffect(() => {
-    setConf(params.get('conf') || '')
     setDiv(params.get('div') || '')
   }, [params])
 
   const filtered = useMemo(() => {
     return schools.filter(s => {
-      if (conf && s.conf !== conf) return false
       if (div && s.div !== div) return false
       if (cms && s.cms !== cms) return false
-      if (search && !s.name.toLowerCase().includes(search.toLowerCase()) &&
-          !s.conf.toLowerCase().includes(search.toLowerCase())) return false
+      if (search && !s.name.toLowerCase().includes(search.toLowerCase())) return false
       return true
     })
-  }, [conf, div, cms, search])
+  }, [div, cms, search])
 
   const totalPages = Math.ceil(filtered.length / PAGE_SIZE)
   const pageSlice = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
@@ -44,10 +39,10 @@ export default function Index() {
   }
 
   const clearFilters = () => {
-    setConf(''); setDiv(''); setCms(''); setSearch(''); setPage(1)
+    setDiv(''); setCms(''); setSearch(''); setPage(1)
   }
 
-  const hasFilters = conf || div || cms || search
+  const hasFilters = div || cms || search
 
   return (
     <div className={styles.page}>
@@ -72,14 +67,10 @@ export default function Index() {
             <input
               type="text"
               className={styles.search}
-              placeholder="Search schools or conferences..."
+              placeholder="Search schools..."
               value={search}
               onChange={handleFilter(setSearch)}
             />
-            <select className={styles.select} value={conf} onChange={handleFilter(setConf)}>
-              <option value="">All Conferences</option>
-              {conferences.map(c => <option key={c} value={c}>{c}</option>)}
-            </select>
             <select className={styles.select} value={div} onChange={handleFilter(setDiv)}>
               <option value="">All Divisions</option>
               {divisions.map(d => <option key={d} value={d}>{d}</option>)}

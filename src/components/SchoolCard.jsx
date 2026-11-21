@@ -12,9 +12,31 @@ function getInitials(name) {
   return name.split(' ').filter(w => w.length > 2).slice(0, 2).map(w => w[0]).join('')
 }
 
-export default function SchoolCard({ school, locked, index }) {
+export default function SchoolCard({ school, locked, index, compact }) {
   const div = DIV_COLORS[school.div] || DIV_COLORS['Division I']
   const initials = getInitials(school.name)
+
+  if (compact) {
+    return (
+      <div className={styles.cardCompact}>
+        <div className={styles.name}>{school.name}</div>
+        <div className={styles.meta}>
+          <span className={styles.divBadge} style={{ background: div.bg, color: div.color }}>
+            {div.label}
+          </span>
+          <span className={styles.confBadge}>{school.conf}</span>
+          <span className={styles.cmsBadge}>{school.cms}</span>
+        </div>
+        <div className={styles.love}>
+          <span className={styles.loveLabel}>What We Love</span>
+          <p>{school.love}</p>
+        </div>
+        <Link to={`/school/${school.id}`} className={styles.detailBtn}>
+          Full Analysis →
+        </Link>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.card}>

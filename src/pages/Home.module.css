@@ -317,11 +317,12 @@
   color: var(--muted);
 }
 
-/* CARD LIST */
+/* CARD LIST — featured audits: 3 across, not stacked */
 .cardList {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: stretch;
 }
 
 .moreCta {
@@ -416,6 +417,7 @@
 @media (max-width: 768px) {
   .heroTitle { font-size: 56px; }
   .aboutGrid { grid-template-columns: 1fr; }
+  .cardList { grid-template-columns: 1fr; }
   .stat { padding: 14px 20px; }
   .statsBar { flex-wrap: wrap; }
 }

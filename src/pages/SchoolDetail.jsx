@@ -317,7 +317,7 @@ export default function SchoolDetail() {
                   </div>
                   <blockquote className={styles.ideaEvidence}>“{idea.evidence}”</blockquote>
                   <div className={styles.ideaSource}>{idea.evidenceSource} · captured {idea.captureDate}</div>
-                  <p className={styles.ideaSteal}>{idea.stealIt}</p>
+                  {idea.stealIt && <p className={styles.ideaSteal}>{idea.stealIt}</p>}
                 </div>
               ))}
               <p className={styles.noteLine}>

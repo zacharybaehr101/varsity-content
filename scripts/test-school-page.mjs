@@ -115,7 +115,10 @@ for (const s of schools) {
   const ideas = ideasFromSchool(s)
   if (ideas.length < 1 || ideas.length > 2) ideasBad++
   for (const idea of ideas) {
-    if (!idea.angle || !idea.evidence || !idea.stealIt || !idea.ideaKey) ideasBad++
+    if (!idea.angle || !idea.evidence || !idea.ideaKey) ideasBad++
+    // No generic steal-it line: generic angles carry stealIt '' and render
+    // without a Steal-it row. The generic line must never appear.
+    if (idea.stealIt === 'Copy the layout, not the copy — adapt what they did to your school.') ideasBad++
   }
 }
 check('emphasisFor valid for all 148 (bad)', emphasisBad, 0)
